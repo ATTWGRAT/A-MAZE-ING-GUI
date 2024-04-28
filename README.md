@@ -1,3 +1,3 @@
 # A-MAZE-ING-GUI
-Bartosz Głażewski
+Bartosz Głażewski\
 Bartłomiej Modzolewski
