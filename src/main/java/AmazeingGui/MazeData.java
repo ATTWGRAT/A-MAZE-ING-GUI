@@ -1,18 +1,10 @@
 package AmazeingGui;
 
 public class MazeData {
-    public enum FieldTypes{
-        Entry(-1),
-        Exit(-2),
-        Wall(-3),
-        Path(0);
-
-        public final int value;
-        FieldTypes(int value)
-        {
-            this.value = value;
-        }
-    }
+    public static final int Entry = -3;
+    public static final int Exit = -2;
+    public static final int Wall = -1;
+    public static final int Path = 0;
 
     private final int width;
     private final int height;
@@ -28,7 +20,7 @@ public class MazeData {
     {
         try
         {
-            maze[y][x] = FieldTypes.Exit.ordinal();
+            maze[y][x] = Exit;
         }
         catch(IndexOutOfBoundsException e)
         {
@@ -40,7 +32,7 @@ public class MazeData {
     {
         try
         {
-            maze[y][x] = FieldTypes.Entry.ordinal();
+            maze[y][x] = Entry;
         }
         catch(IndexOutOfBoundsException e)
         {

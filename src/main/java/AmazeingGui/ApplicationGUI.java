@@ -1,7 +1,7 @@
 package AmazeingGui;
 
-import AmazeingGui.GuiElements.ControlPanel;
-import AmazeingGui.GuiElements.MazePanel;
+import AmazeingGui.GuiElements.ControlPanelComposite;
+import AmazeingGui.GuiElements.MazePanelComposite;
 import AmazeingGui.GuiElements.StatusLabelPanel;
 
 import javax.swing.*;
@@ -9,9 +9,9 @@ import java.awt.*;
 
 public class ApplicationGUI {
     private final JFrame mainGUIFrame;
-    private final ControlPanel controlPanel;
+    private final ControlPanelComposite controlPanelComposite;
     private final StatusLabelPanel statusLabelPanel;
-    private final MazePanel mazePanel;
+    private final MazePanelComposite mazePanelComposite;
 
     public ApplicationGUI()
     {
@@ -23,9 +23,9 @@ public class ApplicationGUI {
         this.mainGUIFrame.setLayout(new GridBagLayout());
         this.mainGUIFrame.setLocationRelativeTo(null);
 
-        this.controlPanel = new ControlPanel();
+        this.controlPanelComposite = new ControlPanelComposite();
         this.statusLabelPanel = new StatusLabelPanel();
-        this.mazePanel = new MazePanel();
+        this.mazePanelComposite = new MazePanelComposite();
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(20, 20, 20, 20);
@@ -36,7 +36,7 @@ public class ApplicationGUI {
         gbc.gridwidth = 2;
         gbc.weightx = 0.8;
         gbc.weighty = 0.75;
-        this.mainGUIFrame.add(this.mazePanel.getScrollPane(), gbc);
+        this.mainGUIFrame.add(this.mazePanelComposite.getScrollPane(), gbc);
 
         gbc.weighty = 0.25;
         gbc.gridx = 0;
@@ -50,12 +50,28 @@ public class ApplicationGUI {
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.gridheight = 4;
-        this.mainGUIFrame.add(this.controlPanel.getjPanel(), gbc);
+        this.mainGUIFrame.add(this.controlPanelComposite.getjPanel(), gbc);
 
     }
 
     public void start()
     {
         this.mainGUIFrame.setVisible(true);
+    }
+
+    public JFrame getMainGUIFrame() {
+        return mainGUIFrame;
+    }
+
+    public ControlPanelComposite getControlPanel() {
+        return controlPanelComposite;
+    }
+
+    public StatusLabelPanel getStatusLabelPanel() {
+        return statusLabelPanel;
+    }
+
+    public MazePanelComposite getMazePanel() {
+        return mazePanelComposite;
     }
 }

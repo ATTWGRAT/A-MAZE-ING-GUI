@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class ControlPanel {
+public class ControlPanelComposite {
     private final JPanel jPanel;
     private final ControlPanelButton solveButton;
     private final ControlPanelButton chooseEntranceButton;
@@ -14,7 +14,7 @@ public class ControlPanel {
     private final JRadioButton binToggleButton;
     private final JLabel fileNameLabel;
 
-    public ControlPanel()
+    public ControlPanelComposite()
     {
         Image solveImage;
         Image exitImage;
