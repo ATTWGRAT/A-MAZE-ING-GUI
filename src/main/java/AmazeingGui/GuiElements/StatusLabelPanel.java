@@ -3,9 +3,9 @@ package AmazeingGui.GuiElements;
 import javax.swing.*;
 import java.awt.*;
 
-public class StatusLabelPanel extends JPanel {
+public final class StatusLabelPanel extends JPanel {
     private final JLabel panelLabel;
-    public StatusLabelPanel()
+    StatusLabelPanel()
     {
         super();
         setLayout(new BorderLayout());

@@ -11,7 +11,7 @@ public class MazeView {
     private final JPanel mazeViewPanel;
     private final BufferedImage mazeImage;
 
-    public MazeView(MazeData mazeData)
+    MazeView(MazeData mazeData)
     {
         mazeViewPanel = new JPanel();
         this.mazeData = mazeData;
@@ -58,15 +58,15 @@ public class MazeView {
         return image;
     }
 
-    public MazeData getMazeData() {
+    MazeData getMazeData() {
         return mazeData;
     }
 
-    public BufferedImage getMazeImage() {
+    BufferedImage getMazeImage() {
         return mazeImage;
     }
 
-    public JPanel getMazeViewPanel() {
+    JPanel getMazeViewPanel() {
         return mazeViewPanel;
     }
 }

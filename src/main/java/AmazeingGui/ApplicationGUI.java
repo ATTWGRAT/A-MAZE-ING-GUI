@@ -1,17 +1,13 @@
 package AmazeingGui;
 
-import AmazeingGui.GuiElements.ControlPanelComposite;
-import AmazeingGui.GuiElements.MazePanelComposite;
-import AmazeingGui.GuiElements.StatusLabelPanel;
+import AmazeingGui.GuiElements.MainControlPanelComposite;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ApplicationGUI {
+public final class ApplicationGUI {
     private final JFrame mainGUIFrame;
-    private final ControlPanelComposite controlPanelComposite;
-    private final StatusLabelPanel statusLabelPanel;
-    private final MazePanelComposite mazePanelComposite;
+    private final MainControlPanelComposite controlPanelComposite;
 
     public ApplicationGUI()
     {
@@ -23,9 +19,11 @@ public class ApplicationGUI {
         this.mainGUIFrame.setLayout(new GridBagLayout());
         this.mainGUIFrame.setLocationRelativeTo(null);
 
-        this.controlPanelComposite = new ControlPanelComposite();
-        this.statusLabelPanel = new StatusLabelPanel();
-        this.mazePanelComposite = new MazePanelComposite();
+        this.controlPanelComposite = new MainControlPanelComposite();
+
+        JScrollPane mazeScrollPane = controlPanelComposite.getMazeViewPanelCompositeJScrollPane();
+
+        JPanel statusLabelPanel = controlPanelComposite.getStatusLabelJPanel();
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(20, 20, 20, 20);
@@ -36,13 +34,13 @@ public class ApplicationGUI {
         gbc.gridwidth = 2;
         gbc.weightx = 0.8;
         gbc.weighty = 0.75;
-        this.mainGUIFrame.add(this.mazePanelComposite.getScrollPane(), gbc);
+        this.mainGUIFrame.add(mazeScrollPane, gbc);
 
         gbc.weighty = 0.25;
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridheight = 1;
-        this.mainGUIFrame.add(this.statusLabelPanel, gbc);
+        this.mainGUIFrame.add(statusLabelPanel, gbc);
 
         gbc.weightx = 0.2;
         gbc.weighty = 1;
@@ -63,15 +61,8 @@ public class ApplicationGUI {
         return mainGUIFrame;
     }
 
-    public ControlPanelComposite getControlPanel() {
+    public MainControlPanelComposite getControlPanel() {
         return controlPanelComposite;
     }
 
-    public StatusLabelPanel getStatusLabelPanel() {
-        return statusLabelPanel;
-    }
-
-    public MazePanelComposite getMazePanel() {
-        return mazePanelComposite;
-    }
 }

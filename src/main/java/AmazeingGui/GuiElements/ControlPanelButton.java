@@ -3,7 +3,7 @@ package AmazeingGui.GuiElements;
 import javax.swing.*;
 import java.awt.*;
 
-class ControlPanelButton extends JButton {
+public class ControlPanelButton extends JButton {
 
     ControlPanelButton(String name, ImageIcon icon)
     {

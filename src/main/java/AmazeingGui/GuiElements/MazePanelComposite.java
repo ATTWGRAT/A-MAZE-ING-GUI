@@ -3,12 +3,13 @@ package AmazeingGui.GuiElements;
 import AmazeingGui.MazeData;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class MazePanelComposite {
+public final class MazePanelComposite {
     private MazeView mazeView;
     private final JScrollPane scrollPane;
 
-    public MazePanelComposite()
+    MazePanelComposite()
     {
         //temp for testing
         int[][] maze = new int[1000][1000];
@@ -34,11 +35,11 @@ public class MazePanelComposite {
         scrollPane.setAutoscrolls(true);
     }
 
-    public JScrollPane getScrollPane() {
+    JScrollPane getScrollPane() {
         return scrollPane;
     }
 
-    public void changeMazeData(MazeData mazeData)
+    void changeMazeData(MazeData mazeData)
     {
         mazeView = new MazeView(mazeData);
         scrollPane.setViewportView(mazeView.getMazeViewPanel());

@@ -5,8 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class ControlPanelComposite {
-    private final JPanel jPanel;
+public final class MainControlPanelComposite {
+    private final JPanel controlJPanel;
     private final ControlPanelButton solveButton;
     private final ControlPanelButton chooseEntranceButton;
     private final ControlPanelButton chooseExitButton;
@@ -14,7 +14,11 @@ public class ControlPanelComposite {
     private final JRadioButton binToggleButton;
     private final JLabel fileNameLabel;
 
-    public ControlPanelComposite()
+    private final MazePanelComposite mazeViewPanelComposite;
+
+    private final StatusLabelPanel statusLabelPanel;
+
+    public MainControlPanelComposite()
     {
         Image solveImage;
         Image exitImage;
@@ -35,7 +39,9 @@ public class ControlPanelComposite {
             throw new RuntimeException(e);
         }
 
-        this.jPanel = new JPanel();
+        this.controlJPanel = new JPanel();
+        this.mazeViewPanelComposite = new MazePanelComposite();
+        this.statusLabelPanel = new StatusLabelPanel();
 
         // Creating buttons
         this.chooseFileButton = new ControlPanelButton(" Wybierz plik", new ImageIcon(folderImage));
@@ -64,7 +70,7 @@ public class ControlPanelComposite {
 
     private void setupGrid()
     {
-        this.jPanel.setLayout(new GridBagLayout());
+        this.controlJPanel.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -76,36 +82,45 @@ public class ControlPanelComposite {
         gbc.gridx = 0;
         gbc.gridwidth = 2;
 
-        this.jPanel.add(this.fileNameLabel, gbc);
+        this.controlJPanel.add(this.fileNameLabel, gbc);
 
         gbc.gridy++; //Row 2
 
         gbc.gridwidth = 1;
         gbc.weightx = 0.5;
 
-        this.jPanel.add(this.chooseFileButton, gbc);
+        this.controlJPanel.add(this.chooseFileButton, gbc);
 
         gbc.gridx = 1; //Column 2
 
-        this.jPanel.add(this.binToggleButton, gbc);
+        this.controlJPanel.add(this.binToggleButton, gbc);
 
         gbc.gridy++; //Row 3 Column 1
         gbc.gridwidth = 2;
         gbc.weightx = 1;
         gbc.gridx = 0;
 
-        this.jPanel.add(this.chooseEntranceButton, gbc);
+        this.controlJPanel.add(this.chooseEntranceButton, gbc);
 
         gbc.gridy++; //Row 4
 
-        this.jPanel.add(this.chooseExitButton, gbc);
+        this.controlJPanel.add(this.chooseExitButton, gbc);
 
         gbc.gridy++; //Row 5
 
-        this.jPanel.add(this.solveButton, gbc);
+        this.controlJPanel.add(this.solveButton, gbc);
     }
 
     public JPanel getjPanel() {
-        return jPanel;
+        return controlJPanel;
     }
+
+    public JPanel getStatusLabelJPanel() {
+        return statusLabelPanel;
+    }
+
+    public JScrollPane getMazeViewPanelCompositeJScrollPane() {
+        return mazeViewPanelComposite.getScrollPane();
+    }
+
 }
