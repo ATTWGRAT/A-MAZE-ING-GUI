@@ -1,9 +1,9 @@
-package AmazeingGui.GuiElements;
+package AmazeingGui.GuiControlPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public final class StatusLabelPanel extends JPanel {
+final class StatusLabelPanel extends JPanel {
     private final JLabel panelLabel;
     StatusLabelPanel()
     {
@@ -21,7 +21,7 @@ public final class StatusLabelPanel extends JPanel {
         setLabel("Gotowy do akcji! Wybierz labirynt.", false);
     }
 
-    public void setLabel(String text, boolean isError) {
+    void setLabel(String text, boolean isError) {
         if(isError)
             panelLabel.setForeground(Color.red);
         else

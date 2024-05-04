@@ -1,13 +1,16 @@
 package AmazeingGui;
 
-import AmazeingGui.GuiElements.MainControlPanelComposite;
+import AmazeingGui.GuiControlPanel.ButtonEnum;
+import AmazeingGui.GuiControlPanel.ControlPanel;
+
+import AmazeingGui.Listeners.FileButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
 
 public final class ApplicationGUI {
     private final JFrame mainGUIFrame;
-    private final MainControlPanelComposite controlPanelComposite;
+    private final ControlPanel controlPanel;
 
     public ApplicationGUI()
     {
@@ -19,11 +22,13 @@ public final class ApplicationGUI {
         this.mainGUIFrame.setLayout(new GridBagLayout());
         this.mainGUIFrame.setLocationRelativeTo(null);
 
-        this.controlPanelComposite = new MainControlPanelComposite();
+        this.controlPanel = new ControlPanel();
 
-        JScrollPane mazeScrollPane = controlPanelComposite.getMazeViewPanelCompositeJScrollPane();
+        JScrollPane mazeScrollPane = controlPanel.getJScrollPane();
 
-        JPanel statusLabelPanel = controlPanelComposite.getStatusLabelJPanel();
+        JPanel statusLabelPanel = controlPanel.getStatusLabelJPanel();
+
+        JPanel buttonPanel = controlPanel.getButtonPanel();
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(20, 20, 20, 20);
@@ -48,7 +53,12 @@ public final class ApplicationGUI {
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.gridheight = 4;
-        this.mainGUIFrame.add(this.controlPanelComposite.getjPanel(), gbc);
+        this.mainGUIFrame.add(buttonPanel, gbc);
+
+        controlPanel.setButtonActionListener(
+                ButtonEnum.chooseFileButton,
+                new FileButtonListener(controlPanel)
+        );
 
     }
 
@@ -61,8 +71,8 @@ public final class ApplicationGUI {
         return mainGUIFrame;
     }
 
-    public MainControlPanelComposite getControlPanel() {
-        return controlPanelComposite;
+    public ControlPanel getControlPanel() {
+        return controlPanel;
     }
 
 }

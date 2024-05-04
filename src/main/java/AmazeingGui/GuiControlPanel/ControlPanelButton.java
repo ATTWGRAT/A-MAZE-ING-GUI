@@ -1,9 +1,9 @@
-package AmazeingGui.GuiElements;
+package AmazeingGui.GuiControlPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ControlPanelButton extends JButton {
+class ControlPanelButton extends JButton {
 
     ControlPanelButton(String name, ImageIcon icon)
     {

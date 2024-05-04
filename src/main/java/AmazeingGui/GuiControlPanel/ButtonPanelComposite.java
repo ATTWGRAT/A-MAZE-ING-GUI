@@ -1,11 +1,12 @@
-package AmazeingGui.GuiElements;
+package AmazeingGui.GuiControlPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public final class MainControlPanelComposite {
+class ButtonPanelComposite {
     private final JPanel controlJPanel;
     private final ControlPanelButton solveButton;
     private final ControlPanelButton chooseEntranceButton;
@@ -14,11 +15,7 @@ public final class MainControlPanelComposite {
     private final JRadioButton binToggleButton;
     private final JLabel fileNameLabel;
 
-    private final MazePanelComposite mazeViewPanelComposite;
-
-    private final StatusLabelPanel statusLabelPanel;
-
-    public MainControlPanelComposite()
+    ButtonPanelComposite()
     {
         Image solveImage;
         Image exitImage;
@@ -40,8 +37,6 @@ public final class MainControlPanelComposite {
         }
 
         this.controlJPanel = new JPanel();
-        this.mazeViewPanelComposite = new MazePanelComposite();
-        this.statusLabelPanel = new StatusLabelPanel();
 
         // Creating buttons
         this.chooseFileButton = new ControlPanelButton(" Wybierz plik", new ImageIcon(folderImage));
@@ -65,7 +60,6 @@ public final class MainControlPanelComposite {
         this.binToggleButton.setOpaque(true);
 
         setupGrid();
-
     }
 
     private void setupGrid()
@@ -111,16 +105,35 @@ public final class MainControlPanelComposite {
         this.controlJPanel.add(this.solveButton, gbc);
     }
 
-    public JPanel getjPanel() {
+    JPanel getControlJPanel() {
         return controlJPanel;
     }
 
-    public JPanel getStatusLabelJPanel() {
-        return statusLabelPanel;
+    void setButtonState(ButtonEnum button, boolean state)
+    {
+        switch(button)
+        {
+            case solveButton -> this.solveButton.setEnabled(state);
+            case chooseEntranceButton -> this.chooseEntranceButton.setEnabled(state);
+            case chooseExitButton -> this.chooseExitButton.setEnabled(state);
+            case chooseFileButton -> this.chooseFileButton.setEnabled(state);
+            case binToggleButton -> this.binToggleButton.setEnabled(state);
+        }
     }
 
-    public JScrollPane getMazeViewPanelCompositeJScrollPane() {
-        return mazeViewPanelComposite.getScrollPane();
+    void setButtonListener(ButtonEnum button, ActionListener listener)
+    {
+        switch(button)
+        {
+            case solveButton -> this.solveButton.addActionListener(listener);
+            case chooseEntranceButton -> this.chooseEntranceButton.addActionListener(listener);
+            case chooseExitButton -> this.chooseExitButton.addActionListener(listener);
+            case chooseFileButton -> this.chooseFileButton.addActionListener(listener);
+            case binToggleButton -> this.binToggleButton.addActionListener(listener);
+        }
     }
 
+    JLabel getFilenameLabel() {
+        return fileNameLabel;
+    }
 }
