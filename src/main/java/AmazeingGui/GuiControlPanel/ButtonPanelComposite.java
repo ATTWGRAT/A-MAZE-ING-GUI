@@ -53,7 +53,7 @@ class ButtonPanelComposite {
         this.fileNameLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
         //Creating binary file toggle button
-        this.binToggleButton = new JRadioButton(" Plik binarny");
+        this.binToggleButton = new JRadioButton("<html>Plik tekstowy: OFF<br/> Plik binarny: ON</html>");
         this.binToggleButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.binToggleButton.setHorizontalAlignment(0);
         this.binToggleButton.setBackground(new Color(78, 80, 82));
