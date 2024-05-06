@@ -1,6 +1,6 @@
 package AmazeingGui.Listeners;
 
-import AmazeingGui.GuiControlPanel.ControlPanel;
+import AmazeingGui.GuiControlPanel.ControlPanelComposite;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class FileButtonListener implements ActionListener {
-    private final ControlPanel controlPanelComposite;
+    private final ControlPanelComposite controlPanelComposite;
     private File currentFile;
 
-    public FileButtonListener(ControlPanel controlPanelComposite) {
+    public FileButtonListener(ControlPanelComposite controlPanelComposite) {
         this.controlPanelComposite = controlPanelComposite;
     }
 
