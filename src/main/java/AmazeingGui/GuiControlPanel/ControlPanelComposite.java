@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 
-public final class ControlPanel {
+public final class ControlPanelComposite {
     private final ButtonPanelComposite buttonPanelComposite;
 
     private final MazeScrollPaneComposite mazeViewPanelComposite;
@@ -15,7 +15,7 @@ public final class ControlPanel {
     private final StatusLabelPanel statusLabelPanel;
     private MazeData mazeData;
 
-    public ControlPanel()
+    public ControlPanelComposite()
     {
 
         this.statusLabelPanel = new StatusLabelPanel();

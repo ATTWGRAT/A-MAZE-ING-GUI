@@ -4,14 +4,14 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 final class MazeScrollPaneComposite {
-    private InternalMazeView internalMazeView;
+    private MazeViewPanel internalMazeView;
     private final JScrollPane scrollPane;
 
     MazeScrollPaneComposite(BufferedImage mazeImage)
     {
-        internalMazeView = new InternalMazeView(mazeImage);
+        internalMazeView = new MazeViewPanel(mazeImage);
 
-        scrollPane = new JScrollPane(internalMazeView.getMazeViewPanel());
+        scrollPane = new JScrollPane(internalMazeView);
         scrollPane.setAutoscrolls(true);
     }
 
@@ -21,7 +21,7 @@ final class MazeScrollPaneComposite {
 
     void changeMazeImage(BufferedImage mazeImage)
     {
-        internalMazeView = new InternalMazeView(mazeImage);
-        scrollPane.setViewportView(internalMazeView.getMazeViewPanel());
+        internalMazeView = new MazeViewPanel(mazeImage);
+        scrollPane.setViewportView(internalMazeView);
     }
 }
