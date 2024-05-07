@@ -7,11 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class FileButtonListener implements ActionListener {
+class FileButtonListener implements ActionListener {
     private final ControlPanelComposite controlPanelComposite;
     private File currentFile;
 
-    public FileButtonListener(ControlPanelComposite controlPanelComposite) {
+    FileButtonListener(ControlPanelComposite controlPanelComposite) {
         this.controlPanelComposite = controlPanelComposite;
     }
 

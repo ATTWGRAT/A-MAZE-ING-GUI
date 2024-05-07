@@ -2,8 +2,8 @@ package AmazeingGui;
 
 import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-
-import AmazeingGui.Listeners.FileButtonListener;
+import AmazeingGui.Listeners.ListenerEnum;
+import AmazeingGui.Listeners.ListenerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +57,7 @@ public final class ApplicationGUI {
 
         controlPanelComposite.setButtonActionListener(
                 ButtonEnum.chooseFileButton,
-                new FileButtonListener(controlPanelComposite)
+                ListenerFactory.createActionListener(ListenerEnum.FileButton, controlPanelComposite)
         );
 
     }
