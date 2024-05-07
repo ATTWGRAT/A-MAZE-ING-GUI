@@ -13,6 +13,7 @@ public final class ControlPanelComposite {
     private final MazeScrollPaneComposite mazeViewPanelComposite;
 
     private final StatusLabelPanel statusLabelPanel;
+
     private MazeData mazeData;
 
     public ControlPanelComposite()

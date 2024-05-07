@@ -4,19 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-class MazeViewPanel extends JPanel {
-    private final JLabel imageLabel;
+class MazeViewPanel extends JLabel {
     private final BufferedImage mazeImage;
 
     MazeViewPanel(BufferedImage mazeImage)
     {
-        super();
+        super(new ImageIcon(mazeImage));
         this.mazeImage = mazeImage;
-        imageLabel = new JLabel(new ImageIcon(mazeImage));
-
         setPreferredSize(new Dimension(mazeImage.getWidth(), mazeImage.getHeight()));
-        setLayout(new BorderLayout());
-        add(imageLabel, BorderLayout.CENTER);
 
     }
 
