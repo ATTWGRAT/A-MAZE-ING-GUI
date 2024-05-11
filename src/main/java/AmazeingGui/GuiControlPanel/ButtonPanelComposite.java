@@ -12,7 +12,6 @@ class ButtonPanelComposite {
     private final ControlPanelButton chooseEntranceButton;
     private final ControlPanelButton chooseExitButton;
     private final ControlPanelButton chooseFileButton;
-    private final JRadioButton binToggleButton;
     private final JLabel fileNameLabel;
 
     ButtonPanelComposite()
@@ -52,12 +51,6 @@ class ButtonPanelComposite {
         this.fileNameLabel.setHorizontalAlignment(0); // 0 = centered
         this.fileNameLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
-        //Creating binary file toggle button
-        this.binToggleButton = new JRadioButton("<html>Plik tekstowy: OFF<br/> Plik binarny: ON</html>");
-        this.binToggleButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.binToggleButton.setHorizontalAlignment(0);
-        this.binToggleButton.setBackground(new Color(78, 80, 82));
-        this.binToggleButton.setOpaque(true);
 
         setupGrid();
     }
@@ -74,25 +67,14 @@ class ButtonPanelComposite {
         gbc.weighty = 0.2;
         gbc.gridy = 0; //Row 1
         gbc.gridx = 0;
-        gbc.gridwidth = 2;
 
         this.controlJPanel.add(this.fileNameLabel, gbc);
 
         gbc.gridy++; //Row 2
 
-        gbc.gridwidth = 1;
-        gbc.weightx = 0.5;
-
         this.controlJPanel.add(this.chooseFileButton, gbc);
 
-        gbc.gridx = 1; //Column 2
-
-        this.controlJPanel.add(this.binToggleButton, gbc);
-
-        gbc.gridy++; //Row 3 Column 1
-        gbc.gridwidth = 2;
-        gbc.weightx = 1;
-        gbc.gridx = 0;
+        gbc.gridy++; //Row 3
 
         this.controlJPanel.add(this.chooseEntranceButton, gbc);
 
@@ -117,7 +99,6 @@ class ButtonPanelComposite {
             case chooseEntranceButton -> this.chooseEntranceButton.setEnabled(state);
             case chooseExitButton -> this.chooseExitButton.setEnabled(state);
             case chooseFileButton -> this.chooseFileButton.setEnabled(state);
-            case binToggleButton -> this.binToggleButton.setEnabled(state);
         }
     }
 
@@ -129,7 +110,6 @@ class ButtonPanelComposite {
             case chooseEntranceButton -> this.chooseEntranceButton.addActionListener(listener);
             case chooseExitButton -> this.chooseExitButton.addActionListener(listener);
             case chooseFileButton -> this.chooseFileButton.addActionListener(listener);
-            case binToggleButton -> this.binToggleButton.addActionListener(listener);
         }
     }
 

@@ -1,15 +1,19 @@
 package AmazeingGui.Listeners;
 
+import AmazeingGui.Exceptions.MazeException;
+import AmazeingGui.GuiControlPanel.ButtonEnum;
+import AmazeingGui.MazeData;
+import AmazeingGui.MazeFileReader;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 class FileButtonListener implements ActionListener {
     private final ControlPanelComposite controlPanelComposite;
-    private File currentFile;
 
     FileButtonListener(ControlPanelComposite controlPanelComposite) {
         this.controlPanelComposite = controlPanelComposite;
@@ -21,18 +25,37 @@ class FileButtonListener implements ActionListener {
 
         int returnVal = fileChooser.showOpenDialog(controlPanelComposite.getJScrollPane());
 
+        File currentFile;
+
         if(returnVal == JFileChooser.APPROVE_OPTION)
-        {
             currentFile = fileChooser.getSelectedFile();
-            controlPanelComposite.getFilenameLabel().setText("Plik: " + currentFile.getName());
-            controlPanelComposite.setStatusLabel("Otwarto plik: " + currentFile.getName(), false);
-        }
-        else if(returnVal == JFileChooser.ERROR_OPTION)
-        {
+        else if(returnVal == JFileChooser.ERROR_OPTION) {
             controlPanelComposite.setStatusLabel("Błąd przy otwieraniu pliku!", true);
+            return;
+        }
+        else {
+            return;
         }
 
+        try {
+            if(MazeFileReader.isFileBinary(currentFile)) {
+                throw new UnsupportedOperationException("Pliki binarne nie zaimplementowane!");
+            }
+            else {
+                MazeData newData = MazeFileReader.readTxtToMazeData(currentFile);
+                controlPanelComposite.changeMazeData(newData);
+                controlPanelComposite.getFilenameLabel().setText("Plik: " + currentFile.getName());
+                controlPanelComposite.setStatusLabel("Otwarto plik: " + currentFile.getName(), false);
+                controlPanelComposite.setButtonState(ButtonEnum.chooseEntranceButton, true);
+                controlPanelComposite.setButtonState(ButtonEnum.chooseExitButton, true);
+                controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
+            }
 
-        //Add reading file to mazeView
+        } catch (IOException ex) {
+            controlPanelComposite.setStatusLabel("Błąd IO podczas czytania z pliku: " + ex.getClass().getName(), true);
+        } catch (MazeException ex) {
+            controlPanelComposite.setStatusLabel("Błąd podczas wczytywania labiryntu: " + ex.getMessage(), true);
+        }
+
     }
 }

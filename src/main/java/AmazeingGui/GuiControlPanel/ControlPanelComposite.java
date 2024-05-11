@@ -1,10 +1,12 @@
 package AmazeingGui.GuiControlPanel;
 
+import AmazeingGui.Coords;
 import AmazeingGui.MazeData;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 
 public final class ControlPanelComposite {
@@ -21,24 +23,17 @@ public final class ControlPanelComposite {
 
         this.statusLabelPanel = new StatusLabelPanel();
         this.buttonPanelComposite = new ButtonPanelComposite();
+        setButtonState(ButtonEnum.solveButton, false);
+        setButtonState(ButtonEnum.chooseExitButton, false);
+        setButtonState(ButtonEnum.chooseEntranceButton, false);
 
         //temp for testing
-        int[][] maze = new int[1000][1000];
+        int[][] fill = new int[1000][1000];
 
-        for (int i = 0; i < 1000; i++) {
-            for (int j = 0; j < 1000; j++)
-            {
-                if((i + j)%2 == 1)
-                    maze[i][j] = MazeData.Wall;
-                else
-                    maze[i][j] = MazeData.Path;
-            }
-        }
+        for(int[] row : fill)
+            Arrays.fill(row, 0);
 
-        mazeData = new MazeData(1000, 1000, maze);
-
-        mazeData.setEntry(0, 2);
-        mazeData.setExit(0, 3);
+        mazeData = new MazeData(1000, 1000, fill, new Coords(-1, -1), new Coords(-1, -1));
 
         BufferedImage tempImage = MazeToImageConverter.convertMazeToImage(mazeData);
 
@@ -73,8 +68,9 @@ public final class ControlPanelComposite {
         buttonPanelComposite.setButtonListener(button, listener);
     }
 
-    public MazeData getMazeData() {
-        return mazeData;
+    public void setButtonState(ButtonEnum button, boolean state)
+    {
+        buttonPanelComposite.setButtonState(button, state);
     }
 
     public void changeMazeData(MazeData mazeData)
