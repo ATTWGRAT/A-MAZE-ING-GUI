@@ -33,7 +33,7 @@ public final class ControlPanelComposite {
         for(int[] row : fill)
             Arrays.fill(row, 0);
 
-        mazeData = new MazeData(1000, 1000, fill, new Coords(-1, -1), new Coords(-1, -1));
+        mazeData = new MazeData(fill, new Coords(-1, -1), new Coords(-1, -1));
 
         BufferedImage tempImage = MazeToImageConverter.convertMazeToImage(mazeData);
 

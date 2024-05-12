@@ -21,7 +21,7 @@ class FileButtonListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(new File("."));
 
         int returnVal = fileChooser.showOpenDialog(controlPanelComposite.getJScrollPane());
 
@@ -43,9 +43,21 @@ class FileButtonListener implements ActionListener {
             }
             else {
                 MazeData newData = MazeFileReader.readTxtToMazeData(currentFile);
+
+                if(newData == null){
+                    controlPanelComposite.setStatusLabel("Podano pusty plik!", true);
+                    return;
+                }
+
                 controlPanelComposite.changeMazeData(newData);
+
                 controlPanelComposite.getFilenameLabel().setText("Plik: " + currentFile.getName());
-                controlPanelComposite.setStatusLabel("Otwarto plik: " + currentFile.getName(), false);
+
+                controlPanelComposite.setStatusLabel("<html>Otwarto plik: " + currentFile.getName() + "<br/>" +
+                        "<table><tr><td>Szerokość: " + newData.width() + "</td><td> Wejście: " + newData.entry() +
+                        "</td></tr><tr><td>Wysokość: " + newData.height() + "</td><td> Wyjście: " + newData.exit() +
+                        "</td></tr></table>", false);
+
                 controlPanelComposite.setButtonState(ButtonEnum.chooseEntranceButton, true);
                 controlPanelComposite.setButtonState(ButtonEnum.chooseExitButton, true);
                 controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);

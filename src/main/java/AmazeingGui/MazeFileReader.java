@@ -4,6 +4,7 @@ import AmazeingGui.Exceptions.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MazeFileReader {
     public static boolean isFileBinary(File file) throws IOException{
@@ -38,45 +39,14 @@ public class MazeFileReader {
         if(line == null)
             return null;
 
-        height++;
         width = line.length();
 
         ArrayList<int[]> maze = new ArrayList<>();
 
-        int[] temp = new int[width];
+        int[] temp;
 
-        for(int i = 0; i < line.length(); i++)
+        while(line != null)
         {
-            switch(line.charAt(i))
-            {
-                case 'X':
-                    temp[i] = MazeData.Wall;
-                    break;
-                case 'P':
-                    if(entry.x != -1)
-                        throw new MazeDoubleEntryException("Znaleziono dwa wejscia w labiryncie!");
-                    entry = new Coords(i, 0);
-                    temp[i] = MazeData.Path;
-                    break;
-                case 'K':
-                    if(exit.x != -1)
-                        throw new MazeDoubleExitException("Znaleziono dwa wyjscia w labiryncie!");
-                    exit = new Coords(i, 0);
-                    temp[i] = MazeData.Path;
-                    break;
-                default:
-                    throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", 0): " + line.charAt(i));
-            }
-        }
-
-        maze.add(temp);
-
-        //Reszta labiryntu z wyjątkiem ostatniej linii
-        String templine;
-
-        while((templine = reader.readLine()) != null)
-        {
-            line = templine;
             temp = new int[width];
 
             height++;
@@ -93,15 +63,20 @@ public class MazeFileReader {
                         break;
                     case 'P':
                         if(entry.x != -1)
-                            throw new MazeDoubleEntryException("Znaleziono dwa wejscia w labiryncie!");
+                            throw new MazeDoubleEntryException("Znaleziono dwa wejścia w labiryncie!");
                         entry = new Coords(i, height-1);
                         temp[i] = MazeData.Path;
                         break;
                     case 'K':
                         if(exit.x != -1)
-                            throw new MazeDoubleExitException("Znaleziono dwa wyjscia w labiryncie!");
+                            throw new MazeDoubleExitException("Znaleziono dwa wyjścia w labiryncie!");
                         exit = new Coords(i, height-1);
+                        temp[i] = MazeData.Path;
+                        break;
                     case ' ':
+                        if(i == 0 || i == width - 1)
+                            throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + height + ")");
+
                         temp[i] = MazeData.Path;
                         break;
 
@@ -111,16 +86,30 @@ public class MazeFileReader {
             }
 
             maze.add(temp);
-        }
 
-        //Sprawdzenie ostatniej linii
-
-        if(line.contains(" ")) {
-            int i = line.indexOf(' ');
-            throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + height + ")");
+            line = reader.readLine();
         }
 
         reader.close();
+
+        if(height < 3 || width < 3)
+            throw new MazeTooSmallException("Rozmiar labiryntu jest za mały! (" + width + "x" + height + ")");
+
+        //Sprawdzenie ostatniej i pierwszej linii
+
+        for (int i = 0; i < width; i++)
+        {
+            if(maze.getFirst()[i] == 0 && entry.x != i && exit.x != i) {
+                throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
+            }
+        }
+
+        for (int i = 0; i < width; i++)
+        {
+            if(maze.getLast()[i] == 0 && entry.x != i && exit.x != i) {
+                throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
+            }
+        }
 
         //Arraylist do 2d tablicy
 
@@ -130,7 +119,7 @@ public class MazeFileReader {
             finalArray[i] = maze.get(i);
         }
 
-        return new MazeData(width, height, finalArray, entry, exit);
+        return new MazeData(finalArray, entry, exit);
 
     }
 }

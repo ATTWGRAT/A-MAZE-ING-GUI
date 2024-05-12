@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 class MazeToImageConverter {
     static BufferedImage convertMazeToImage(MazeData mazeData)
     {
-        BufferedImage image = new BufferedImage(mazeData.width()*5, mazeData.height()*5, BufferedImage.TYPE_BYTE_INDEXED);
+        BufferedImage image = new BufferedImage(mazeData.width()*8, mazeData.height()*8, BufferedImage.TYPE_BYTE_INDEXED);
         Graphics2D g2D = image.createGraphics();
 
         for (int i = 0; i < mazeData.height(); i++) {
@@ -26,7 +26,7 @@ class MazeToImageConverter {
                 else
                     g2D.setPaint(Color.WHITE);
 
-                g2D.fillRect(j*5, i*5, 5, 5);
+                g2D.fillRect(j*8, i*8, 8, 8);
             }
         }
 
