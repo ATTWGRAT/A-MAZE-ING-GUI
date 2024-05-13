@@ -34,4 +34,45 @@ class MazeToImageConverter {
 
         return image;
     }
+
+    static void setExitToImage(BufferedImage image, MazeData mazeData, Coords newCoords)
+    {
+        Graphics2D g2D = (Graphics2D) image.getGraphics();
+
+        if(!mazeData.exit().equals(MazeData.Nowhere))
+        {
+            if(mazeData.maze()[mazeData.exit().y][mazeData.exit().x] == MazeData.Wall)
+                g2D.setPaint(Color.BLACK);
+            else
+                g2D.setPaint(Color.WHITE);
+
+            g2D.fillRect(mazeData.exit().x*8, mazeData.exit().y*8, 8, 8);
+        }
+
+        g2D.setPaint(Color.RED);
+        g2D.fillRect(newCoords.x*8, newCoords.y*8, 8, 8);
+
+        g2D.dispose();
+    }
+
+    static void setEntryToImage(BufferedImage image, MazeData mazeData, Coords newCoords)
+    {
+        Graphics2D g2D = (Graphics2D) image.getGraphics();
+
+        if(!mazeData.entry().equals(MazeData.Nowhere))
+        {
+            if(mazeData.maze()[mazeData.entry().y][mazeData.entry().x] == MazeData.Wall)
+                g2D.setPaint(Color.BLACK);
+            else
+                g2D.setPaint(Color.WHITE);
+
+            g2D.fillRect(mazeData.entry().x*8, mazeData.entry().y*8, 8, 8);
+        }
+
+        g2D.setPaint(Color.GREEN);
+        g2D.fillRect(newCoords.x*8, newCoords.y*8, 8, 8);
+
+        g2D.dispose();
+    }
+
 }

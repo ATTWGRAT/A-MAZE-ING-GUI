@@ -12,6 +12,8 @@ public class ListenerFactory {
         switch (listeners)
         {
             case FileButton -> newListener = new FileButtonListener(CPC);
+            case ChooseExitButton -> newListener = new ChooseExitButtonListener(CPC);
+            case ChooseEntryButton -> newListener = new ChooseEntryButtonListener(CPC);
         }
 
         return newListener;

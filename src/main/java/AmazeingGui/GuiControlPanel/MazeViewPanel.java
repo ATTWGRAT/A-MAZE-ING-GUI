@@ -4,21 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-class MazeViewPanel extends JLabel {
-    private final BufferedImage mazeImage;
+class MazeViewPanel extends JPanel {
+    private final JLabel internalLabel;
 
     MazeViewPanel(BufferedImage mazeImage)
     {
-        super(new ImageIcon(mazeImage));
-        this.mazeImage = mazeImage;
-        setPreferredSize(new Dimension(mazeImage.getWidth(), mazeImage.getHeight()));
-
+        super();
+        setLayout(new GridBagLayout());
+        internalLabel = new JLabel(new ImageIcon(mazeImage));
+        internalLabel.setSize(new Dimension(mazeImage.getWidth(), mazeImage.getHeight()));
+        add(internalLabel);
     }
 
-    BufferedImage getMazeImage() {
-        return mazeImage;
+    public JLabel getInternalLabel() {
+        return internalLabel;
     }
-
-
-
 }

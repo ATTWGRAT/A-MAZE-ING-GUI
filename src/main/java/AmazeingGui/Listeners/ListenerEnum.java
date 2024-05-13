@@ -1,5 +1,7 @@
 package AmazeingGui.Listeners;
 
 public enum ListenerEnum{
-    FileButton
+    FileButton,
+    ChooseExitButton,
+    ChooseEntryButton,
 }

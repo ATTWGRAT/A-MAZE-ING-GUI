@@ -60,7 +60,9 @@ class FileButtonListener implements ActionListener {
 
                 controlPanelComposite.setButtonState(ButtonEnum.chooseEntranceButton, true);
                 controlPanelComposite.setButtonState(ButtonEnum.chooseExitButton, true);
-                controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
+
+                if(!(newData.exit().equals(MazeData.Nowhere) || newData.entry().equals(MazeData.Nowhere)))
+                    controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
             }
 
         } catch (IOException ex) {

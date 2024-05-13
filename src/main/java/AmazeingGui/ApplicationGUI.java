@@ -4,6 +4,7 @@ import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
 import AmazeingGui.Listeners.ListenerEnum;
 import AmazeingGui.Listeners.ListenerFactory;
+import AmazeingGui.Listeners.MazeMouseActionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,6 +60,18 @@ public final class ApplicationGUI {
                 ButtonEnum.chooseFileButton,
                 ListenerFactory.createActionListener(ListenerEnum.FileButton, controlPanelComposite)
         );
+
+        controlPanelComposite.setButtonActionListener(
+                ButtonEnum.chooseEntranceButton,
+                ListenerFactory.createActionListener(ListenerEnum.ChooseEntryButton, controlPanelComposite)
+        );
+
+        controlPanelComposite.setButtonActionListener(
+                ButtonEnum.chooseExitButton,
+                ListenerFactory.createActionListener(ListenerEnum.ChooseExitButton, controlPanelComposite)
+        );
+
+        controlPanelComposite.addMouseListener(new MazeMouseActionListener(controlPanelComposite));
 
     }
 

@@ -5,6 +5,7 @@ import AmazeingGui.MazeData;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
@@ -18,11 +19,17 @@ public final class ControlPanelComposite {
 
     private MazeData mazeData;
 
+    private boolean isChoosingExit;
+    private boolean isChoosingEntry;
+
     public ControlPanelComposite()
     {
+        isChoosingEntry = false;
+        isChoosingExit = false;
 
         this.statusLabelPanel = new StatusLabelPanel();
         this.buttonPanelComposite = new ButtonPanelComposite();
+
         setButtonState(ButtonEnum.solveButton, false);
         setButtonState(ButtonEnum.chooseExitButton, false);
         setButtonState(ButtonEnum.chooseEntranceButton, false);
@@ -78,5 +85,48 @@ public final class ControlPanelComposite {
         this.mazeData = mazeData;
         BufferedImage tempImage = MazeToImageConverter.convertMazeToImage(mazeData);
         mazeViewPanelComposite.changeMazeImage(tempImage);
+    }
+
+    public boolean isChoosingExit() {
+        return isChoosingExit;
+    }
+
+    public void changeChoosingExit() {
+        isChoosingExit = !isChoosingExit;
+    }
+
+    public boolean isChoosingEntry() {
+        return isChoosingEntry;
+    }
+
+    public void changeChoosingEntry() {
+        isChoosingEntry = !isChoosingEntry;
+    }
+
+    public void setNewExit(Coords coords)
+    {
+        BufferedImage image = mazeViewPanelComposite.getMazeImage();
+
+        MazeToImageConverter.setExitToImage(image, mazeData, coords);
+
+        mazeViewPanelComposite.revalidateView();
+    }
+
+    public void setNewEntry(Coords coords)
+    {
+        BufferedImage image = mazeViewPanelComposite.getMazeImage();
+
+        MazeToImageConverter.setEntryToImage(image, mazeData, coords);
+
+        mazeViewPanelComposite.revalidateView();
+    }
+
+    public void addMouseListener(MouseListener listener)
+    {
+        mazeViewPanelComposite.addMouseListener(listener);
+    }
+
+    public MazeData getMazeData() {
+        return mazeData;
     }
 }

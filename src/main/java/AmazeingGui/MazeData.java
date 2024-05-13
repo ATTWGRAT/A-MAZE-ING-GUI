@@ -3,6 +3,7 @@ package AmazeingGui;
 public record MazeData(int[][] maze, Coords entry, Coords exit) {
     public static final int Wall = -1;
     public static final int Path = 0;
+    public static final Coords Nowhere = new Coords(-1, -1);
 
     public int width() {
         return maze[0].length;

@@ -4,7 +4,6 @@ import AmazeingGui.Exceptions.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MazeFileReader {
     public static boolean isFileBinary(File file) throws IOException{
@@ -61,23 +60,39 @@ public class MazeFileReader {
                     case 'X':
                         temp[i] = MazeData.Wall;
                         break;
+
                     case 'P':
                         if(entry.x != -1)
                             throw new MazeDoubleEntryException("Znaleziono dwa wejścia w labiryncie!");
+
                         entry = new Coords(i, height-1);
-                        temp[i] = MazeData.Path;
+
+                        if(i == 0 || i == width - 1)
+                            temp[i] = MazeData.Wall;
+                        else
+                            temp[i] = MazeData.Path;
+
                         break;
+
                     case 'K':
                         if(exit.x != -1)
                             throw new MazeDoubleExitException("Znaleziono dwa wyjścia w labiryncie!");
+
                         exit = new Coords(i, height-1);
-                        temp[i] = MazeData.Path;
+
+                        if(i == 0 || i == width - 1)
+                            temp[i] = MazeData.Wall;
+                        else
+                            temp[i] = MazeData.Path;
+
                         break;
+
                     case ' ':
                         if(i == 0 || i == width - 1)
                             throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + height + ")");
 
                         temp[i] = MazeData.Path;
+
                         break;
 
                     default:
