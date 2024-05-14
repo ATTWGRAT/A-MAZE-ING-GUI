@@ -12,6 +12,7 @@ class ButtonPanelComposite {
     private final ControlPanelButton chooseEntranceButton;
     private final ControlPanelButton chooseExitButton;
     private final ControlPanelButton chooseFileButton;
+    private final ControlPanelButton writeFileButton;
     private final JLabel fileNameLabel;
 
     ButtonPanelComposite()
@@ -20,6 +21,7 @@ class ButtonPanelComposite {
         Image exitImage;
         Image entryImage;
         Image folderImage;
+        Image writingImage;
 
         //Loading icons from resources
         try
@@ -28,7 +30,7 @@ class ButtonPanelComposite {
             exitImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResource("exit.png")));
             entryImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResource("log-in.png")));
             folderImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResource("folder.png")));
-
+            writingImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResource("writing.png")));
         }
         catch (Exception e)
         {
@@ -42,7 +44,7 @@ class ButtonPanelComposite {
         this.chooseExitButton = new ControlPanelButton(" Wybierz wyjście", new ImageIcon(exitImage));
         this.chooseEntranceButton = new ControlPanelButton(" Wybierz wejście", new ImageIcon(entryImage));
         this.solveButton = new ControlPanelButton(" Rozwiąż", new ImageIcon(solveImage));
-
+        this.writeFileButton = new ControlPanelButton(" Wypisz labirynt", new ImageIcon(writingImage));
 
         //Creating label for filename
         this.fileNameLabel = new JLabel("Brak Wybranego Pliku");
@@ -65,15 +67,25 @@ class ButtonPanelComposite {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.weightx = 1;
         gbc.weighty = 0.2;
+        gbc.gridwidth = 2;
         gbc.gridy = 0; //Row 1
         gbc.gridx = 0;
 
         this.controlJPanel.add(this.fileNameLabel, gbc);
 
         gbc.gridy++; //Row 2
+        gbc.weightx = 0.5;
+        gbc.gridwidth = 1;
 
         this.controlJPanel.add(this.chooseFileButton, gbc);
 
+        gbc.gridx = 1;
+
+        this.controlJPanel.add(this.writeFileButton, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1;
         gbc.gridy++; //Row 3
 
         this.controlJPanel.add(this.chooseEntranceButton, gbc);
@@ -99,6 +111,7 @@ class ButtonPanelComposite {
             case chooseEntranceButton -> this.chooseEntranceButton.setEnabled(state);
             case chooseExitButton -> this.chooseExitButton.setEnabled(state);
             case chooseFileButton -> this.chooseFileButton.setEnabled(state);
+            case writeFileButton -> this.writeFileButton.setEnabled(state);
         }
     }
 
@@ -110,6 +123,7 @@ class ButtonPanelComposite {
             case chooseEntranceButton -> this.chooseEntranceButton.addActionListener(listener);
             case chooseExitButton -> this.chooseExitButton.addActionListener(listener);
             case chooseFileButton -> this.chooseFileButton.addActionListener(listener);
+            case writeFileButton -> this.writeFileButton.addActionListener(listener);
         }
     }
 

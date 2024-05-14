@@ -5,4 +5,5 @@ public enum ButtonEnum {
     chooseEntranceButton,
     chooseExitButton,
     chooseFileButton,
+    writeFileButton
 }

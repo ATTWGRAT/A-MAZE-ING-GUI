@@ -34,6 +34,7 @@ public final class ControlPanelComposite {
         setButtonState(ButtonEnum.solveButton, false);
         setButtonState(ButtonEnum.chooseExitButton, false);
         setButtonState(ButtonEnum.chooseEntranceButton, false);
+        setButtonState(ButtonEnum.writeFileButton, false);
 
         //temp for testing
         int[][] fill = new int[1000][1000];
