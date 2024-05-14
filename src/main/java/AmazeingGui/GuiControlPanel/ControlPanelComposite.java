@@ -2,6 +2,7 @@ package AmazeingGui.GuiControlPanel;
 
 import AmazeingGui.Coords;
 import AmazeingGui.MazeData;
+import AmazeingGui.MazeToImageConverter;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

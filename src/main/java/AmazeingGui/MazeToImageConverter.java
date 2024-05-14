@@ -1,13 +1,10 @@
-package AmazeingGui.GuiControlPanel;
-
-import AmazeingGui.Coords;
-import AmazeingGui.MazeData;
+package AmazeingGui;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-class MazeToImageConverter {
-    static BufferedImage convertMazeToImage(MazeData mazeData)
+public class MazeToImageConverter {
+    public static BufferedImage convertMazeToImage(MazeData mazeData)
     {
         BufferedImage image = new BufferedImage(mazeData.width()*8, mazeData.height()*8, BufferedImage.TYPE_BYTE_INDEXED);
         Graphics2D g2D = image.createGraphics();
@@ -35,7 +32,7 @@ class MazeToImageConverter {
         return image;
     }
 
-    static void setExitToImage(BufferedImage image, MazeData mazeData, Coords newCoords)
+    public static void setExitToImage(BufferedImage image, MazeData mazeData, Coords newCoords)
     {
         Graphics2D g2D = (Graphics2D) image.getGraphics();
 
@@ -55,7 +52,7 @@ class MazeToImageConverter {
         g2D.dispose();
     }
 
-    static void setEntryToImage(BufferedImage image, MazeData mazeData, Coords newCoords)
+    public static void setEntryToImage(BufferedImage image, MazeData mazeData, Coords newCoords)
     {
         Graphics2D g2D = (Graphics2D) image.getGraphics();
 
