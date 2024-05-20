@@ -21,8 +21,8 @@ public class ChooseExitButtonListener implements ActionListener {
 
         MazeData data = controlPanelComposite.getMazeData();
 
-        if(!(data.exit().equals(MazeData.Nowhere)
-                || data.entry().equals(MazeData.Nowhere)))
+        if(data.getExit() != null
+                && data.getEntry() != null)
             controlPanelComposite.setButtonState(ButtonEnum.solveButton, val);
 
         controlPanelComposite.setButtonState(ButtonEnum.chooseEntranceButton, val);

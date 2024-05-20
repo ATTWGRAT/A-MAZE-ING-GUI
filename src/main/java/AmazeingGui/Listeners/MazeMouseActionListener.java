@@ -1,6 +1,9 @@
 package AmazeingGui.Listeners;
 
 import AmazeingGui.Coords;
+import AmazeingGui.CustomEvent.EventFactory;
+import AmazeingGui.CustomEvent.EventType;
+import AmazeingGui.CustomEventManager;
 import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
 import AmazeingGui.MazeData;
@@ -28,33 +31,44 @@ public class MazeMouseActionListener extends MouseInputAdapter {
 
         if(controlPanelComposite.isChoosingEntry())
         {
-            controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
+            if(controlPanelComposite.getMazeData().getExit() != null)
+                controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
+
             controlPanelComposite.setButtonState(ButtonEnum.chooseExitButton, true);
             controlPanelComposite.setButtonState(ButtonEnum.chooseFileButton, true);
 
-            controlPanelComposite.setNewEntry(newCoords);
-
             controlPanelComposite.changeChoosingEntry();
 
+            Coords oldCoords = data.getEntry();
+
             data.setEntry(newCoords);
+
+            CustomEventManager.getInstance().callEvent(
+                    EventType.coordsChangeEvent,
+                    EventFactory.createCoordsChangeEvent(oldCoords, newCoords, false)
+            );
+
         }
         else if (controlPanelComposite.isChoosingExit())
         {
-            controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
+            if(controlPanelComposite.getMazeData().getEntry() != null)
+                controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
+
             controlPanelComposite.setButtonState(ButtonEnum.chooseEntranceButton, true);
             controlPanelComposite.setButtonState(ButtonEnum.chooseFileButton, true);
 
-            controlPanelComposite.setNewExit(newCoords);
-
             controlPanelComposite.changeChoosingExit();
 
+            Coords oldCoords = data.getExit();
+
             data.setExit(newCoords);
-        } else {
-            return;
+
+            CustomEventManager.getInstance().callEvent(
+                    EventType.coordsChangeEvent,
+                    EventFactory.createCoordsChangeEvent(oldCoords, newCoords, true)
+            );
+
         }
 
-        controlPanelComposite.setStatusLabel("<html>" + "<table><tr><td>Szerokość: " + data.width() + "</td><td> Wejście: " + data.entry() +
-                "</td></tr><tr><td>Wysokość: " + data.height() + "</td><td> Wyjście: " + data.exit() +
-                "</td></tr></table>", false);
     }
 }

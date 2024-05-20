@@ -1,9 +1,19 @@
 package AmazeingGui;
 
-public record MazeData(int[][] maze, Coords entry, Coords exit) {
+public class MazeData
+{
     public static final int Wall = -1;
     public static final int Path = 0;
-    public static final Coords Nowhere = new Coords(-1, -1);
+
+    private final int[][] maze;
+    private Coords entry;
+    private Coords exit;
+
+    public MazeData(int[][] maze, Coords entry, Coords exit) {
+        this.maze = maze;
+        this.entry = entry;
+        this.exit = exit;
+    }
 
     public int width() {
         return maze[0].length;
@@ -13,19 +23,29 @@ public record MazeData(int[][] maze, Coords entry, Coords exit) {
         return maze.length;
     }
 
-    public void setExit(Coords newCoords) {
+    public synchronized void setExit(Coords newCoords) {
         if(newCoords.x >= width() || newCoords.y >= height())
             System.err.println("Error setting the exit location in the maze: " + newCoords.x + ", " + newCoords.y);
 
-        exit.x = newCoords.x;
-        exit.y = newCoords.y;
+        exit = newCoords;
     }
 
-    public void setEntry(Coords newCoords) {
+    public synchronized void setEntry(Coords newCoords) {
         if(newCoords.x >= width() || newCoords.y >= height())
             System.err.println("Error setting the exit location in the maze: " + newCoords.x + ", " + newCoords.y);
 
-        entry.x = newCoords.x;
-        entry.y = newCoords.y;
+        entry = newCoords;
+    }
+
+    public int[][] getMaze() {
+        return maze;
+    }
+
+    public Coords getEntry() {
+        return entry;
+    }
+
+    public Coords getExit() {
+        return exit;
     }
 }
