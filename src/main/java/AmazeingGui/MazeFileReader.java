@@ -23,7 +23,7 @@ public class MazeFileReader {
 
     }
 
-    public static MazeData readTxtToMazeData(File file) throws IOException, MazeException {
+    public synchronized static MazeData readTxtToMazeData(File file) throws IOException, MazeException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
         Coords entry = null;
@@ -36,7 +36,7 @@ public class MazeFileReader {
         line = reader.readLine();
 
         if(line == null)
-            return null;
+            throw new MazeTooSmallException("Podano pusty plik!");
 
         width = line.length();
 
