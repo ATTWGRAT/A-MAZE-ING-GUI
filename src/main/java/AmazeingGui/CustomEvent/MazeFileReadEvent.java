@@ -2,7 +2,7 @@ package AmazeingGui.CustomEvent;
 
 import AmazeingGui.MazeData;
 
-public class MazeFileReadEvent extends CustomEvent{
+public class MazeFileReadEvent extends CustomEvent {
     private final String source;
     private final MazeData newMaze;
 

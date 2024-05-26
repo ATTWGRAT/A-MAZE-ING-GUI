@@ -1,4 +1,4 @@
 package AmazeingGui.CustomEvent;
 
-public abstract class CustomEvent {
+public class CustomEvent {
 }

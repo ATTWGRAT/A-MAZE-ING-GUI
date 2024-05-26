@@ -1,7 +1,7 @@
 package AmazeingGui.CustomActionListeners.GuiListeners;
 
+import AmazeingGui.ApplicationGUI;
 import AmazeingGui.Coords;
-import AmazeingGui.CustomActionListeners.CustomActionListener;
 import AmazeingGui.CustomEvent.ChangeCoordsEvent;
 import AmazeingGui.CustomEvent.CustomEvent;
 import AmazeingGui.GuiControlPanel.ButtonEnum;
@@ -10,12 +10,10 @@ import AmazeingGui.MazeData;
 
 import javax.swing.*;
 
-public class ChangeCoordsListener implements CustomActionListener {
-    private final ControlPanelComposite controlPanelComposite;
-
-    public ChangeCoordsListener(ControlPanelComposite controlPanelComposite)
+public class ChangeCoordsListener extends GuiObserver {
+    public ChangeCoordsListener(ApplicationGUI gui)
     {
-        this.controlPanelComposite = controlPanelComposite;
+        super(gui);
     }
 
     @Override
@@ -25,6 +23,8 @@ public class ChangeCoordsListener implements CustomActionListener {
         else {
             if (!(event instanceof ChangeCoordsEvent changeCoordsEvent))
                 return;
+
+            ControlPanelComposite controlPanelComposite = this.gui.getControlPanel();
 
             Coords oldCoords = changeCoordsEvent.getOldCoords();
             Coords newCoords = changeCoordsEvent.getNewCoords();

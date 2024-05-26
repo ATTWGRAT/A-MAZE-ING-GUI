@@ -2,7 +2,7 @@ package AmazeingGui.CustomEvent;
 
 import AmazeingGui.Coords;
 
-public class ChangeCoordsEvent extends CustomEvent{
+public class ChangeCoordsEvent extends CustomEvent {
     private final Coords oldCoords;
     private final Coords newCoords;
     private final boolean isExit;

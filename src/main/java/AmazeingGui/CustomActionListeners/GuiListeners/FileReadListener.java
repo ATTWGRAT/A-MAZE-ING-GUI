@@ -1,6 +1,6 @@
 package AmazeingGui.CustomActionListeners.GuiListeners;
 
-import AmazeingGui.CustomActionListeners.CustomActionListener;
+import AmazeingGui.ApplicationGUI;
 import AmazeingGui.CustomEvent.CustomEvent;
 import AmazeingGui.CustomEvent.MazeFileReadEvent;
 import AmazeingGui.GuiControlPanel.ButtonEnum;
@@ -9,12 +9,11 @@ import AmazeingGui.MazeData;
 
 import javax.swing.*;
 
-public class FileReadListener implements CustomActionListener {
-    private final ControlPanelComposite controlPanelComposite;
+public class FileReadListener extends GuiObserver {
 
-    public FileReadListener(ControlPanelComposite controlPanelComposite)
+    public FileReadListener(ApplicationGUI gui)
     {
-        this.controlPanelComposite = controlPanelComposite;
+        super(gui);
     }
 
     @Override
@@ -28,6 +27,7 @@ public class FileReadListener implements CustomActionListener {
 
             MazeData newData = mazeEvent.getNewMaze();
             String source = mazeEvent.getSource();
+            ControlPanelComposite controlPanelComposite = this.gui.getControlPanel();
 
             controlPanelComposite.getFilenameLabel().setText("Źródło: " + source);
 
