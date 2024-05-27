@@ -2,6 +2,7 @@ package AmazeingGui.GuiControlPanel;
 
 import AmazeingGui.Coords;
 import AmazeingGui.MazeData;
+import AmazeingGui.MazeToImageConverter;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -33,6 +34,7 @@ public final class ControlPanelComposite {
         setButtonState(ButtonEnum.solveButton, false);
         setButtonState(ButtonEnum.chooseExitButton, false);
         setButtonState(ButtonEnum.chooseEntranceButton, false);
+        setButtonState(ButtonEnum.writeFileButton, false);
 
         //temp for testing
         int[][] fill = new int[1000][1000];
@@ -40,7 +42,7 @@ public final class ControlPanelComposite {
         for(int[] row : fill)
             Arrays.fill(row, 0);
 
-        mazeData = new MazeData(fill, new Coords(-1, -1), new Coords(-1, -1));
+        mazeData = new MazeData(fill, null, null);
 
         BufferedImage tempImage = MazeToImageConverter.convertMazeToImage(mazeData);
 
@@ -103,20 +105,20 @@ public final class ControlPanelComposite {
         isChoosingEntry = !isChoosingEntry;
     }
 
-    public void setNewExit(Coords coords)
+    public void setNewExit(Coords oldCoords, Coords newCoords)
     {
         BufferedImage image = mazeViewPanelComposite.getMazeImage();
 
-        MazeToImageConverter.setExitToImage(image, mazeData, coords);
+        MazeToImageConverter.setExitToImage(image, oldCoords, newCoords, mazeData);
 
         mazeViewPanelComposite.revalidateView();
     }
 
-    public void setNewEntry(Coords coords)
+    public void setNewEntry(Coords oldCoords, Coords newCoords)
     {
         BufferedImage image = mazeViewPanelComposite.getMazeImage();
 
-        MazeToImageConverter.setEntryToImage(image, mazeData, coords);
+        MazeToImageConverter.setEntryToImage(image, oldCoords, newCoords, mazeData);
 
         mazeViewPanelComposite.revalidateView();
     }

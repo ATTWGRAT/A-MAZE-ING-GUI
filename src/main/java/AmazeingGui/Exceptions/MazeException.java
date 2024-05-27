@@ -1,8 +1,7 @@
 package AmazeingGui.Exceptions;
 
 public abstract class MazeException extends Exception {
-
-    public MazeException(String message) {
+    MazeException(String message) {
         super(message);
     }
 }

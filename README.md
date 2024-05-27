@@ -5,4 +5,5 @@ Bartłomiej Modzolewski\
 <a href="https://www.flaticon.com/free-icons/exit" title="exit icons">Exit icons created by Freepik - Flaticon</a>\
 <a href="https://www.flaticon.com/free-icons/entrance" title="entrance icons">Entrance icons created by Freepik - Flaticon</a>\
 <a href="https://www.flaticon.com/free-icons/folder" title="folder icons">Folder icons created by Freepik - Flaticon</a>\
+<a href="https://www.flaticon.com/free-icons/writing" title="writing icons">Writing icons created by Freepik - Flaticon</a>
 

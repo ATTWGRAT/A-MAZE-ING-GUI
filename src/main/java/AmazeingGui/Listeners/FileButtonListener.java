@@ -1,10 +1,13 @@
 package AmazeingGui.Listeners;
 
+import AmazeingGui.CustomEvent.EventFactory;
+import AmazeingGui.CustomEvent.MazeFileReadEvent;
+import AmazeingGui.CustomEventManager;
+import AmazeingGui.CustomEvent.EventType;
 import AmazeingGui.Exceptions.MazeException;
-import AmazeingGui.GuiControlPanel.ButtonEnum;
-import AmazeingGui.MazeData;
 import AmazeingGui.MazeFileReader;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
+import AmazeingGui.MazeData;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -44,25 +47,10 @@ class FileButtonListener implements ActionListener {
             else {
                 MazeData newData = MazeFileReader.readTxtToMazeData(currentFile);
 
-                if(newData == null){
-                    controlPanelComposite.setStatusLabel("Podano pusty plik!", true);
-                    return;
-                }
-
-                controlPanelComposite.changeMazeData(newData);
-
-                controlPanelComposite.getFilenameLabel().setText("Plik: " + currentFile.getName());
-
-                controlPanelComposite.setStatusLabel("<html>Otwarto plik: " + currentFile.getName() + "<br/>" +
-                        "<table><tr><td>Szerokość: " + newData.width() + "</td><td> Wejście: " + newData.entry() +
-                        "</td></tr><tr><td>Wysokość: " + newData.height() + "</td><td> Wyjście: " + newData.exit() +
-                        "</td></tr></table>", false);
-
-                controlPanelComposite.setButtonState(ButtonEnum.chooseEntranceButton, true);
-                controlPanelComposite.setButtonState(ButtonEnum.chooseExitButton, true);
-
-                if(!(newData.exit().equals(MazeData.Nowhere) || newData.entry().equals(MazeData.Nowhere)))
-                    controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
+                CustomEventManager.getInstance().callEvent(
+                        EventType.fileReadEvent,
+                        EventFactory.createMazeChangeEvent(currentFile.getName(), newData)
+                );
             }
 
         } catch (IOException ex) {

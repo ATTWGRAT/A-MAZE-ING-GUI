@@ -23,11 +23,11 @@ public class MazeFileReader {
 
     }
 
-    public static MazeData readTxtToMazeData(File file) throws IOException, MazeException {
+    public synchronized static MazeData readTxtToMazeData(File file) throws IOException, MazeException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
-        Coords entry = new Coords(-1, -1);
-        Coords exit = new Coords(-1, -1);
+        Coords entry = null;
+        Coords exit = null;
         int height = 0;
         int width;
         String line;
@@ -36,7 +36,7 @@ public class MazeFileReader {
         line = reader.readLine();
 
         if(line == null)
-            return null;
+            throw new MazeTooSmallException("Podano pusty plik!");
 
         width = line.length();
 
@@ -62,7 +62,7 @@ public class MazeFileReader {
                         break;
 
                     case 'P':
-                        if(entry.x != -1)
+                        if(entry != null)
                             throw new MazeDoubleEntryException("Znaleziono dwa wejścia w labiryncie!");
 
                         entry = new Coords(i, height-1);
@@ -75,7 +75,7 @@ public class MazeFileReader {
                         break;
 
                     case 'K':
-                        if(exit.x != -1)
+                        if(exit != null)
                             throw new MazeDoubleExitException("Znaleziono dwa wyjścia w labiryncie!");
 
                         exit = new Coords(i, height-1);
@@ -114,15 +114,17 @@ public class MazeFileReader {
 
         for (int i = 0; i < width; i++)
         {
-            if(maze.getFirst()[i] == 0 && entry.x != i && exit.x != i) {
-                throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
+            if(maze.getFirst()[i] == 0) {
+                if((entry == null || entry.x != i) && (exit == null || exit.x != i))
+                    throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
             }
         }
 
         for (int i = 0; i < width; i++)
         {
-            if(maze.getLast()[i] == 0 && entry.x != i && exit.x != i) {
-                throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
+            if(maze.getLast()[i] == 0 ) {
+                if((entry == null || entry.x != i) && (exit == null || exit.x != i))
+                    throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
             }
         }
 
@@ -135,6 +137,5 @@ public class MazeFileReader {
         }
 
         return new MazeData(finalArray, entry, exit);
-
     }
 }

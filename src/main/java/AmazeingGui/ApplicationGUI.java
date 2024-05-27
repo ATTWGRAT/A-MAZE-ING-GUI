@@ -1,8 +1,10 @@
 package AmazeingGui;
 
+import AmazeingGui.CustomActionListeners.GuiListeners.ChangeCoordsListener;
+import AmazeingGui.CustomActionListeners.GuiListeners.FileReadListener;
+import AmazeingGui.CustomEvent.EventType;
 import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-import AmazeingGui.Listeners.ListenerEnum;
 import AmazeingGui.Listeners.ListenerFactory;
 import AmazeingGui.Listeners.MazeMouseActionListener;
 
@@ -58,20 +60,23 @@ public final class ApplicationGUI {
 
         controlPanelComposite.setButtonActionListener(
                 ButtonEnum.chooseFileButton,
-                ListenerFactory.createActionListener(ListenerEnum.FileButton, controlPanelComposite)
+                ListenerFactory.createActionListener(ButtonEnum.chooseFileButton, controlPanelComposite)
         );
 
         controlPanelComposite.setButtonActionListener(
                 ButtonEnum.chooseEntranceButton,
-                ListenerFactory.createActionListener(ListenerEnum.ChooseEntryButton, controlPanelComposite)
+                ListenerFactory.createActionListener(ButtonEnum.chooseEntranceButton, controlPanelComposite)
         );
 
         controlPanelComposite.setButtonActionListener(
                 ButtonEnum.chooseExitButton,
-                ListenerFactory.createActionListener(ListenerEnum.ChooseExitButton, controlPanelComposite)
+                ListenerFactory.createActionListener(ButtonEnum.chooseExitButton, controlPanelComposite)
         );
 
         controlPanelComposite.addMouseListener(new MazeMouseActionListener(controlPanelComposite));
+
+        CustomEventManager.getInstance().registerListener(EventType.fileReadEvent, new FileReadListener(this));
+        CustomEventManager.getInstance().registerListener(EventType.coordsChangeEvent, new ChangeCoordsListener(this));
 
     }
 

@@ -1,19 +1,20 @@
 package AmazeingGui.Listeners;
 
+import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
 
 import java.awt.event.ActionListener;
 
 public class ListenerFactory {
-    public static ActionListener createActionListener(ListenerEnum listeners, ControlPanelComposite CPC)
+    public static ActionListener createActionListener(ButtonEnum listeners, ControlPanelComposite CPC)
     {
         ActionListener newListener = null;
 
         switch (listeners)
         {
-            case FileButton -> newListener = new FileButtonListener(CPC);
-            case ChooseExitButton -> newListener = new ChooseExitButtonListener(CPC);
-            case ChooseEntryButton -> newListener = new ChooseEntryButtonListener(CPC);
+            case chooseFileButton -> newListener = new FileButtonListener(CPC);
+            case chooseExitButton -> newListener = new ChooseExitButtonListener(CPC);
+            case chooseEntranceButton -> newListener = new ChooseEntryButtonListener(CPC);
         }
 
         return newListener;
