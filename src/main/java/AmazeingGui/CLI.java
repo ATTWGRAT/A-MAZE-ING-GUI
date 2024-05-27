@@ -1,21 +1,19 @@
 package AmazeingGui;
 
-import AmazeingGui.CustomActionListeners.TuiListeners.CliFileReadListener;
-import AmazeingGui.CustomEvent.EventType;
-import AmazeingGui.TuiStates.FileAwaitState;
-import AmazeingGui.TuiStates.CliState;
+import AmazeingGui.ActionObservers.CLIObservers.CliFileReadObserver;
+import AmazeingGui.CLIStates.FileAwaitState;
+import AmazeingGui.CLIStates.CliState;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
 public final class CLI {
-    private MazeData mazeData;
     private PrintStream stream;
     private volatile CliState state;
 
     public CLI()
     {
-        CustomEventManager.getInstance().registerListener(EventType.fileReadEvent, new CliFileReadListener(this));
+        CustomEventManager.getInstance().registerObserver(EventType.fileReadEvent, new CliFileReadObserver(this));
 
         stream = System.out;
 
@@ -29,7 +27,7 @@ public final class CLI {
 
     public CLI(String path)
     {
-        CustomEventManager.getInstance().registerListener(EventType.fileReadEvent, new CliFileReadListener(this));
+        CustomEventManager.getInstance().registerObserver(EventType.fileReadEvent, new CliFileReadObserver(this));
 
         stream = System.out;
 
@@ -63,11 +61,6 @@ public final class CLI {
     public void changeState(CliState state)
     {
         this.state = state;
-    }
-
-    public void setMazeData(MazeData mazeData)
-    {
-        this.mazeData = mazeData;
     }
 
 }

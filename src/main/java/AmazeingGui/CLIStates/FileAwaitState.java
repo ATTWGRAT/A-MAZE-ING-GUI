@@ -1,10 +1,8 @@
-package AmazeingGui.TuiStates;
+package AmazeingGui.CLIStates;
 
-import AmazeingGui.CustomEvent.EventFactory;
-import AmazeingGui.CustomEvent.EventType;
 import AmazeingGui.CustomEventManager;
+import AmazeingGui.EventType;
 import AmazeingGui.Exceptions.MazeException;
-import AmazeingGui.MazeData;
 import AmazeingGui.MazeFileReader;
 import AmazeingGui.CLI;
 
@@ -21,17 +19,12 @@ public class FileAwaitState implements CliState {
     }
 
     @Override
-    public boolean parseAndExecute(String str) {
+    public void parseAndExecute(String str) {
         File file = new File(str);
         try
         {
-            MazeData data = MazeFileReader.readTxtToMazeData(file);
-
-            CustomEventManager.getInstance().callEvent(
-                    EventType.fileReadEvent,
-                    EventFactory.createMazeChangeEvent(str, data)
-            );
-
+            MazeFileReader.readTxtToMazeData(file);
+            CustomEventManager.getInstance().callEvent(EventType.fileReadEvent);
         }
         catch (IOException e)
         {
@@ -43,6 +36,5 @@ public class FileAwaitState implements CliState {
             cli.printToStream("Błąd podczas odczytywania labiryntu: " + e.getMessage());
             cli.changeState(new FileAwaitState(cli));
         }
-        return false;
     }
 }

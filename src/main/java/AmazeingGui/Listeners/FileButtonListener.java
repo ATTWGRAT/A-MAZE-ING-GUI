@@ -1,13 +1,10 @@
 package AmazeingGui.Listeners;
 
-import AmazeingGui.CustomEvent.EventFactory;
-import AmazeingGui.CustomEvent.MazeFileReadEvent;
 import AmazeingGui.CustomEventManager;
-import AmazeingGui.CustomEvent.EventType;
+import AmazeingGui.EventType;
 import AmazeingGui.Exceptions.MazeException;
 import AmazeingGui.MazeFileReader;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-import AmazeingGui.MazeData;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,12 +42,8 @@ class FileButtonListener implements ActionListener {
                 throw new UnsupportedOperationException("Pliki binarne nie zaimplementowane!");
             }
             else {
-                MazeData newData = MazeFileReader.readTxtToMazeData(currentFile);
-
-                CustomEventManager.getInstance().callEvent(
-                        EventType.fileReadEvent,
-                        EventFactory.createMazeChangeEvent(currentFile.getName(), newData)
-                );
+                MazeFileReader.readTxtToMazeData(currentFile);
+                CustomEventManager.getInstance().callEvent(EventType.fileReadEvent);
             }
 
         } catch (IOException ex) {
