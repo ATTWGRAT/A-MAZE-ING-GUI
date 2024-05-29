@@ -1,14 +1,11 @@
 package AmazeingGui.GuiControlPanel;
 
-import AmazeingGui.Coords;
-import AmazeingGui.MazeData;
 import AmazeingGui.MazeToImageConverter;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 
 public final class ControlPanelComposite {
@@ -17,8 +14,6 @@ public final class ControlPanelComposite {
     private final MazeScrollPaneComposite mazeViewPanelComposite;
 
     private final StatusLabelPanel statusLabelPanel;
-
-    private MazeData mazeData;
 
     private boolean isChoosingExit;
     private boolean isChoosingEntry;
@@ -36,15 +31,7 @@ public final class ControlPanelComposite {
         setButtonState(ButtonEnum.chooseEntranceButton, false);
         setButtonState(ButtonEnum.writeFileButton, false);
 
-        //temp for testing
-        int[][] fill = new int[1000][1000];
-
-        for(int[] row : fill)
-            Arrays.fill(row, 0);
-
-        mazeData = new MazeData(fill, null, null);
-
-        BufferedImage tempImage = MazeToImageConverter.convertMazeToImage(mazeData);
+        BufferedImage tempImage = MazeToImageConverter.getImageFromMaze();
 
         this.mazeViewPanelComposite = new MazeScrollPaneComposite(tempImage);
 
@@ -82,10 +69,9 @@ public final class ControlPanelComposite {
         buttonPanelComposite.setButtonState(button, state);
     }
 
-    public void changeMazeData(MazeData mazeData)
+    public void changeMazeImage()
     {
-        this.mazeData = mazeData;
-        BufferedImage tempImage = MazeToImageConverter.convertMazeToImage(mazeData);
+        BufferedImage tempImage = MazeToImageConverter.getImageFromMaze();
         mazeViewPanelComposite.changeMazeImage(tempImage);
     }
 
@@ -105,30 +91,9 @@ public final class ControlPanelComposite {
         isChoosingEntry = !isChoosingEntry;
     }
 
-    public void setNewExit(Coords oldCoords, Coords newCoords)
-    {
-        BufferedImage image = mazeViewPanelComposite.getMazeImage();
-
-        MazeToImageConverter.setExitToImage(image, oldCoords, newCoords, mazeData);
-
-        mazeViewPanelComposite.revalidateView();
-    }
-
-    public void setNewEntry(Coords oldCoords, Coords newCoords)
-    {
-        BufferedImage image = mazeViewPanelComposite.getMazeImage();
-
-        MazeToImageConverter.setEntryToImage(image, oldCoords, newCoords, mazeData);
-
-        mazeViewPanelComposite.revalidateView();
-    }
-
     public void addMouseListener(MouseListener listener)
     {
         mazeViewPanelComposite.addMouseListener(listener);
     }
 
-    public MazeData getMazeData() {
-        return mazeData;
-    }
 }

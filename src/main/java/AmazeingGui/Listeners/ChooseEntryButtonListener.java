@@ -2,7 +2,7 @@ package AmazeingGui.Listeners;
 
 import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-import AmazeingGui.MazeData;
+import AmazeingGui.MazeDataSingleton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,10 +19,8 @@ public class ChooseEntryButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         boolean val = controlPanelComposite.isChoosingEntry();
 
-        MazeData data = controlPanelComposite.getMazeData();
-
-        if(data.getExit() != null
-                && data.getEntry() != null)
+        if(MazeDataSingleton.getInstance().getExit() != null
+                && MazeDataSingleton.getInstance().getEntry() != null)
             controlPanelComposite.setButtonState(ButtonEnum.solveButton, val);
 
         controlPanelComposite.setButtonState(ButtonEnum.chooseExitButton, val);

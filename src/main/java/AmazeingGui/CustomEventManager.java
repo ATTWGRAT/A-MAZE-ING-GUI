@@ -1,50 +1,48 @@
 package AmazeingGui;
 
-import AmazeingGui.CustomActionListeners.CustomActionListener;
-import AmazeingGui.CustomEvent.CustomEvent;
-import AmazeingGui.CustomEvent.EventType;
+import AmazeingGui.ActionObservers.ActionObserver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class CustomEventManager {
     private static CustomEventManager instance = null;
-    private final HashMap<EventType, ArrayList<CustomActionListener>> registeredListeners;
+    private final HashMap<EventType, ArrayList<ActionObserver>> registeredObservers;
 
     private CustomEventManager()
     {
-        registeredListeners = new HashMap<>();
+        registeredObservers = new HashMap<>();
     }
 
-    public void registerListener(EventType type, CustomActionListener listener)
+    public synchronized void registerObserver(EventType type, ActionObserver observer)
     {
         if(instance == null)
             throw new RuntimeException("Nie zainicializowano event managera!");
 
-        if(!registeredListeners.containsKey(type))
-            registeredListeners.put(type, new ArrayList<>());
+        if(!registeredObservers.containsKey(type))
+            registeredObservers.put(type, new ArrayList<>());
 
-        registeredListeners.get(type).add(listener);
+        registeredObservers.get(type).add(observer);
     }
 
-    public synchronized void callEvent(EventType type, CustomEvent event)
+    public synchronized void callEvent(EventType type)
     {
         if(instance == null)
             throw new RuntimeException("Nie zainicializowano event managera!");
 
-        ArrayList<CustomActionListener> listeners = registeredListeners.get(type);
+        ArrayList<ActionObserver> observers = registeredObservers.get(type);
 
-        if(listeners == null)
+        if(observers == null)
             return;
 
-        listeners.forEach(customActionListener -> customActionListener.call(event));
+        observers.forEach(ActionObserver::call);
     }
 
     public static CustomEventManager getInstance() {
         return instance;
     }
 
-    public static void initialize()
+    static void initialize()
     {
         instance = new CustomEventManager();
     }

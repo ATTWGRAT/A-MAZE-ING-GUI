@@ -7,6 +7,7 @@ import javax.swing.*;
 class Main {
     public static void main(String[] args) {
         CustomEventManager.initialize();
+        MazeDataSingleton.initialize();
 
         SwingUtilities.invokeLater(() -> {
             try {

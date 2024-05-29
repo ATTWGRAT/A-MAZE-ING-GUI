@@ -1,12 +1,11 @@
 package AmazeingGui.Listeners;
 
 import AmazeingGui.Coords;
-import AmazeingGui.CustomEvent.EventFactory;
-import AmazeingGui.CustomEvent.EventType;
 import AmazeingGui.CustomEventManager;
+import AmazeingGui.EventType;
 import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-import AmazeingGui.MazeData;
+import AmazeingGui.MazeDataSingleton;
 
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.MouseEvent;
@@ -23,7 +22,7 @@ public class MazeMouseActionListener extends MouseInputAdapter {
 
         Coords newCoords = new Coords(e.getX() / 8, e.getY()/8);
 
-        MazeData data = controlPanelComposite.getMazeData();
+        MazeDataSingleton data = MazeDataSingleton.getInstance();
 
         if(data.width() <= e.getX()/8
                 || data.height() <= e.getY()/8)
@@ -31,7 +30,7 @@ public class MazeMouseActionListener extends MouseInputAdapter {
 
         if(controlPanelComposite.isChoosingEntry())
         {
-            if(controlPanelComposite.getMazeData().getExit() != null)
+            if(data.getExit() != null)
                 controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
 
             controlPanelComposite.setButtonState(ButtonEnum.chooseExitButton, true);
@@ -39,19 +38,14 @@ public class MazeMouseActionListener extends MouseInputAdapter {
 
             controlPanelComposite.changeChoosingEntry();
 
-            Coords oldCoords = data.getEntry();
-
             data.setEntry(newCoords);
 
-            CustomEventManager.getInstance().callEvent(
-                    EventType.coordsChangeEvent,
-                    EventFactory.createCoordsChangeEvent(oldCoords, newCoords, false)
-            );
+            CustomEventManager.getInstance().callEvent(EventType.coordsChangeEvent);
 
         }
         else if (controlPanelComposite.isChoosingExit())
         {
-            if(controlPanelComposite.getMazeData().getEntry() != null)
+            if(data.getEntry() != null)
                 controlPanelComposite.setButtonState(ButtonEnum.solveButton, true);
 
             controlPanelComposite.setButtonState(ButtonEnum.chooseEntranceButton, true);
@@ -59,14 +53,9 @@ public class MazeMouseActionListener extends MouseInputAdapter {
 
             controlPanelComposite.changeChoosingExit();
 
-            Coords oldCoords = data.getExit();
-
             data.setExit(newCoords);
 
-            CustomEventManager.getInstance().callEvent(
-                    EventType.coordsChangeEvent,
-                    EventFactory.createCoordsChangeEvent(oldCoords, newCoords, true)
-            );
+            CustomEventManager.getInstance().callEvent(EventType.coordsChangeEvent);
 
         }
 

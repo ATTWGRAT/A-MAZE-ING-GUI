@@ -1,4 +1,4 @@
-package AmazeingGui.TuiStates;
+package AmazeingGui.CLIStates;
 
 import AmazeingGui.CLI;
 
@@ -19,7 +19,7 @@ public class InstructionAwaitState implements CliState {
     }
 
     @Override
-    public boolean parseAndExecute(String str) {
+    public void parseAndExecute(String str) {
         switch(str.toUpperCase())
         {
             case "F":
@@ -29,7 +29,6 @@ public class InstructionAwaitState implements CliState {
                 cli.printToStream("Błędna komenda!");
                 cli.changeState(new InstructionAwaitState(cli, noExit));
         }
-        return false;
     }
 
 

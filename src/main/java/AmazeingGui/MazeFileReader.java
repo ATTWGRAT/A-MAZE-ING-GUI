@@ -23,7 +23,7 @@ public class MazeFileReader {
 
     }
 
-    public synchronized static MazeData readTxtToMazeData(File file) throws IOException, MazeException {
+    public synchronized static void readTxtToMazeData(File file) throws IOException, MazeException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
         Coords entry = null;
@@ -58,7 +58,7 @@ public class MazeFileReader {
                 switch(line.charAt(i))
                 {
                     case 'X':
-                        temp[i] = MazeData.Wall;
+                        temp[i] = MazeDataSingleton.Wall;
                         break;
 
                     case 'P':
@@ -68,9 +68,9 @@ public class MazeFileReader {
                         entry = new Coords(i, height-1);
 
                         if(i == 0 || i == width - 1)
-                            temp[i] = MazeData.Wall;
+                            temp[i] = MazeDataSingleton.Wall;
                         else
-                            temp[i] = MazeData.Path;
+                            temp[i] = MazeDataSingleton.Path;
 
                         break;
 
@@ -81,9 +81,9 @@ public class MazeFileReader {
                         exit = new Coords(i, height-1);
 
                         if(i == 0 || i == width - 1)
-                            temp[i] = MazeData.Wall;
+                            temp[i] = MazeDataSingleton.Wall;
                         else
-                            temp[i] = MazeData.Path;
+                            temp[i] = MazeDataSingleton.Path;
 
                         break;
 
@@ -91,7 +91,7 @@ public class MazeFileReader {
                         if(i == 0 || i == width - 1)
                             throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + height + ")");
 
-                        temp[i] = MazeData.Path;
+                        temp[i] = MazeDataSingleton.Path;
 
                         break;
 
@@ -136,6 +136,6 @@ public class MazeFileReader {
             finalArray[i] = maze.get(i);
         }
 
-        return new MazeData(finalArray, entry, exit);
+        MazeDataSingleton.getInstance().changeMaze(finalArray, entry, exit, file.getName());
     }
 }
