@@ -53,6 +53,9 @@ public final class MazeDataSingleton
             System.err.println("Error setting the exit location in the maze: " + newCoords.x + ", " + newCoords.y);
             return;
         }
+        if(newCoords.equals(entry))
+            entry = null;
+
         exit = newCoords;
     }
 
@@ -61,6 +64,9 @@ public final class MazeDataSingleton
             System.err.println("Error setting the exit location in the maze: " + newCoords.x + ", " + newCoords.y);
             return;
         }
+        if(newCoords.equals(exit))
+            exit = null;
+
         entry = newCoords;
     }
 

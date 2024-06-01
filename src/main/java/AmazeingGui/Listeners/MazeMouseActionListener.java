@@ -40,7 +40,7 @@ public class MazeMouseActionListener extends MouseInputAdapter {
 
             data.setEntry(newCoords);
 
-            CustomEventManager.getInstance().callEvent(EventType.coordsChangeEvent);
+            CustomEventManager.getInstance().callEvent(EventType.entryChangeEvent);
 
         }
         else if (controlPanelComposite.isChoosingExit())
@@ -55,7 +55,7 @@ public class MazeMouseActionListener extends MouseInputAdapter {
 
             data.setExit(newCoords);
 
-            CustomEventManager.getInstance().callEvent(EventType.coordsChangeEvent);
+            CustomEventManager.getInstance().callEvent(EventType.exitChangeEvent);
 
         }
 

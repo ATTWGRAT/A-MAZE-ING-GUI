@@ -4,16 +4,18 @@ import AmazeingGui.CLI;
 
 public class InstructionAwaitState implements CliState {
     private CLI cli;
-    private boolean noExit;
 
-    public InstructionAwaitState(CLI cli, boolean noExit)
+    public InstructionAwaitState(CLI cli)
     {
         this.cli = cli;
-        this.noExit = noExit;
+        boolean isSolveable = cli.isSolveable();
+
         String out = "(F) Wczytaj labirynt | (W) Wypisz labirynt | (EX) Wybierz wyjście | (EN) Wybierz wejście";
 
-        if(!noExit)
+        if(isSolveable)
             out += " | (S) Rozwiąż";
+        else
+            cli.printToStream("Aby móc rozwiązać labirynt musisz w nim dodać wejście i wyjście!");
 
         cli.printToStream(out);
     }
@@ -25,9 +27,15 @@ public class InstructionAwaitState implements CliState {
             case "F":
                 cli.changeState(new FileAwaitState(cli));
                 break;
+            case "EX":
+                cli.changeState(new ChangeExitState(cli));
+                break;
+            case "EN":
+                cli.changeState(new ChangeEntryState(cli));
+                break;
             default:
                 cli.printToStream("Błędna komenda!");
-                cli.changeState(new InstructionAwaitState(cli, noExit));
+                cli.changeState(new InstructionAwaitState(cli));
         }
     }
 

@@ -75,7 +75,8 @@ public final class ApplicationGUI {
         controlPanelComposite.addMouseListener(new MazeMouseActionListener(controlPanelComposite));
 
         CustomEventManager.getInstance().registerObserver(EventType.fileReadEvent, new FileReadObserver(controlPanelComposite));
-        CustomEventManager.getInstance().registerObserver(EventType.coordsChangeEvent, new ChangeCoordsObserver(controlPanelComposite));
+        CustomEventManager.getInstance().registerObserver(EventType.exitChangeEvent, new ChangeCoordsObserver(controlPanelComposite));
+        CustomEventManager.getInstance().registerObserver(EventType.entryChangeEvent, new ChangeCoordsObserver(controlPanelComposite));
 
     }
 
