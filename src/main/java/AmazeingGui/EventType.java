@@ -3,5 +3,7 @@ package AmazeingGui;
 public enum EventType {
     fileReadEvent,
     exitChangeEvent,
-    entryChangeEvent
+    entryChangeEvent,
+    solveBeginEvent,
+    solveFinishEvent
 }

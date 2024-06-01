@@ -15,6 +15,7 @@ public class ListenerFactory {
             case chooseFileButton -> newListener = new FileButtonListener(CPC);
             case chooseExitButton -> newListener = new ChooseExitButtonListener(CPC);
             case chooseEntranceButton -> newListener = new ChooseEntryButtonListener(CPC);
+            case solveButton -> newListener = new SolveButtonListener(CPC);
         }
 
         return newListener;

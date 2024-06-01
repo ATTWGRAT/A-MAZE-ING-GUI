@@ -75,6 +75,12 @@ public final class ControlPanelComposite {
         mazeViewPanelComposite.changeMazeImage(tempImage);
     }
 
+    public void repaintMazeImage()
+    {
+        MazeToImageConverter.paintToImage(mazeViewPanelComposite.getMazeImage());
+        mazeViewPanelComposite.revalidateView();
+    }
+
     public boolean isChoosingExit() {
         return isChoosingExit;
     }

@@ -4,11 +4,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class MazeToImageConverter {
-    public static BufferedImage getImageFromMaze()
+    public static void paintToImage(BufferedImage image)
     {
         MazeDataSingleton data = MazeDataSingleton.getInstance();
-
-        BufferedImage image = new BufferedImage(data.width()*8, data.height()*8, BufferedImage.TYPE_BYTE_INDEXED);
 
         Graphics2D g2D = image.createGraphics();
 
@@ -23,6 +21,8 @@ public class MazeToImageConverter {
                     g2D.setPaint(Color.RED);
                 else if (data.getMaze()[i][j] == MazeDataSingleton.Wall)
                     g2D.setPaint(Color.BLACK);
+                else if (data.getMaze()[i][j] == MazeDataSingleton.Route)
+                    g2D.setPaint(Color.ORANGE);
                 else
                     g2D.setPaint(Color.WHITE);
 
@@ -31,6 +31,15 @@ public class MazeToImageConverter {
         }
 
         g2D.dispose();
+    }
+
+    public static BufferedImage getImageFromMaze()
+    {
+        MazeDataSingleton data = MazeDataSingleton.getInstance();
+
+        BufferedImage image = new BufferedImage(data.width()*8, data.height()*8, BufferedImage.TYPE_BYTE_INDEXED);
+
+        paintToImage(image);
 
         return image;
     }

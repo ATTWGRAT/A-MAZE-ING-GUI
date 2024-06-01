@@ -1,8 +1,6 @@
 package AmazeingGui;
 
-import AmazeingGui.ActionObservers.CLIObservers.CliChangeEntryObserver;
-import AmazeingGui.ActionObservers.CLIObservers.CliChangeExitObserver;
-import AmazeingGui.ActionObservers.CLIObservers.CliFileReadObserver;
+import AmazeingGui.ActionObservers.CLIObservers.*;
 import AmazeingGui.CLIStates.FileAwaitState;
 import AmazeingGui.CLIStates.CliState;
 import AmazeingGui.CLIStates.InstructionAwaitState;
@@ -20,9 +18,11 @@ public final class CLI {
         CustomEventManager.getInstance().registerObserver(EventType.fileReadEvent, new CliFileReadObserver(this));
         CustomEventManager.getInstance().registerObserver(EventType.entryChangeEvent, new CliChangeEntryObserver(this));
         CustomEventManager.getInstance().registerObserver(EventType.exitChangeEvent, new CliChangeExitObserver(this));
+        CustomEventManager.getInstance().registerObserver(EventType.solveBeginEvent, new CliSolveBeginObserver(this));
+        CustomEventManager.getInstance().registerObserver(EventType.solveFinishEvent, new CliSolveFinishObserver(this));
 
         isSolveable = false;
-        stream = System.out;
+        stream = System.out; //Potentially changeable
 
         System.out.println("Uruchomiono program A-MAZE-ING!");
 
@@ -43,6 +43,9 @@ public final class CLI {
         setup();
 
         state.parseAndExecute(path);
+
+        if(isSolveable)
+            state.parseAndExecute("S");
 
         runParser();
 

@@ -1,9 +1,12 @@
 package AmazeingGui.CLIStates;
 
 import AmazeingGui.CLI;
+import AmazeingGui.CustomEventManager;
+import AmazeingGui.EventType;
+import AmazeingGui.MazeDataSingleton;
 
 public class InstructionAwaitState implements CliState {
-    private CLI cli;
+    private final CLI cli;
 
     public InstructionAwaitState(CLI cli)
     {
@@ -33,9 +36,17 @@ public class InstructionAwaitState implements CliState {
             case "EN":
                 cli.changeState(new ChangeEntryState(cli));
                 break;
+            case "S":
+                if(!cli.isSolveable()) {
+                    cli.printToStream("Błędna komenda!");
+                    cli.resetState();
+                }
+                CustomEventManager.getInstance().callEvent(EventType.solveBeginEvent);
+                MazeDataSingleton.getInstance().solve();
+                break;
             default:
                 cli.printToStream("Błędna komenda!");
-                cli.changeState(new InstructionAwaitState(cli));
+                cli.resetState();
         }
     }
 
