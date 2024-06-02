@@ -28,6 +28,7 @@ public class MazeFileReader {
 
         Coords entry = null;
         Coords exit = null;
+        boolean solveFlag = false;
         int height = 0;
         int width;
         String line;
@@ -95,6 +96,16 @@ public class MazeFileReader {
 
                         break;
 
+                    case 'R':
+                        if(i == 0 || i == width - 1)
+                            throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + height + ")");
+
+                        temp[i] = MazeDataSingleton.Route;
+
+                        solveFlag = true;
+
+                        break;
+
                     default:
                         throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + height + "): " + line.charAt(i));
                 }
@@ -114,16 +125,28 @@ public class MazeFileReader {
 
         for (int i = 0; i < width; i++)
         {
-            if(maze.getFirst()[i] == 0) {
-                if((entry == null || entry.x != i) && (exit == null || exit.x != i))
+            if(maze.getFirst()[i] == MazeDataSingleton.Path) {
+                if(entry != null && exit != null) {
+                    if (entry.x != i && exit.x != i)
+                        throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
+                    else
+                        maze.getFirst()[i] = MazeDataSingleton.Wall;
+                }
+                else
                     throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
             }
         }
 
         for (int i = 0; i < width; i++)
         {
-            if(maze.getLast()[i] == 0 ) {
-                if((entry == null || entry.x != i) && (exit == null || exit.x != i))
+            if(maze.getLast()[i] == MazeDataSingleton.Path) {
+                if(entry != null && exit != null) {
+                    if (entry.x != i && exit.x != i)
+                        throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
+                    else
+                        maze.getLast()[i] = MazeDataSingleton.Wall;
+                }
+                else
                     throw new MazeIncorrectCharException("Błędny znak w pliku w pozycji (" + i + ", " + 0 + ")");
             }
         }
@@ -137,5 +160,80 @@ public class MazeFileReader {
         }
 
         MazeDataSingleton.getInstance().changeMaze(finalArray, entry, exit, file.getName());
+        MazeDataSingleton.getInstance().setSolved(solveFlag);
+    }
+
+    public synchronized static void readBinToMazeData(File file) throws IOException, MazeException {
+        RandomAccessFile raf = new RandomAccessFile(file, "r");
+        BinaryFileHeader header = new BinaryFileHeader(raf);
+
+        if(header.esc != 0x1B)
+            throw new MazeIncorrectCharException("Błędny znak w pozycji: (" + 0 + ", " + 0 + ")");
+
+        byte[][] maze = new byte[header.rows][header.columns];
+
+        if(header.rows < 3 || header.columns < 3)
+            throw new MazeTooSmallException("Labirynt za mały!");
+
+        short currCol = 0;
+        short currRow = 0;
+        CodeWord currWord;
+
+        for(int i = 0; i < header.counter; i++)
+        {
+            currWord = new CodeWord(raf.readByte(), raf.readByte(), raf.readByte());
+
+            for(int j = 0; j < currWord.counter + 1; j++)
+            {
+                if(currWord.value == header.path)
+                    maze[currRow][currCol] = MazeDataSingleton.Path;
+                else if(currWord.value == header.wall)
+                    maze[currRow][currCol] = MazeDataSingleton.Wall;
+                else
+                    throw new MazeIncorrectCharException("Błędny znak w pliku binarnym: (" + currCol + ", " + currRow + ") - \"" + (char) (currWord.value & 0xFF) + "\"");
+
+                currCol++;
+
+                if(currCol == header.columns)
+                {
+                    currCol = 0;
+                    currRow++;
+                }
+            }
+        }
+
+        Coords entry = new Coords(header.entryX - 1, header.entryY - 1);
+        Coords exit = new Coords(header.exitX - 1, header.exitY - 1);
+
+        if(entry.x == 0 || entry.x == header.columns - 1 || entry.y == 0 || entry.y == header.rows - 1)
+            maze[entry.y][entry.x] = MazeDataSingleton.Wall;
+
+        if(exit.x == 0 || exit.x == header.columns - 1 || exit.y == 0 || exit.y == header.rows - 1)
+            maze[exit.y][exit.x] = MazeDataSingleton.Wall;
+
+        for (int i = 0; i < header.columns - 1; i++)
+        {
+            if(maze[0][i] == header.path) {
+                throw new MazeIncorrectCharException("Błędny znak w labiryncie w pozycji (" + i + ", " + 0 + ")");
+            }
+        }
+
+        for (int i = 0; i < header.columns - 1; i++) {
+            if (maze[header.rows - 1][i] == header.path) {
+                throw new MazeIncorrectCharException("Błędny znak w labiryncie w pozycji (" + i + ", " + (header.rows - 1) + ")");
+            }
+        }
+
+        for (int i = 0; i < header.rows - 1; i++) {
+            if (maze[i][0] == header.path)
+                throw new MazeIncorrectCharException("Błędny znak w labiryncie w pozycji (" + 0 + ", " + i + ")");
+
+            if (maze[i][header.columns - 1] == header.path)
+                throw new MazeIncorrectCharException("Błędny znak w labiryncie w pozycji (" + (header.columns - 1) + ", " + i + ")");
+        }
+
+        raf.close();
+
+        MazeDataSingleton.getInstance().changeMaze(maze, entry, exit, file.getName());
     }
 }

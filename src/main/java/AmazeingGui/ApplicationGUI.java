@@ -79,6 +79,11 @@ public final class ApplicationGUI {
                 ListenerFactory.createActionListener(ButtonEnum.solveButton, controlPanelComposite)
         );
 
+        controlPanelComposite.setButtonActionListener(
+                ButtonEnum.writeFileButton,
+                ListenerFactory.createActionListener(ButtonEnum.writeFileButton, controlPanelComposite)
+        );
+
         controlPanelComposite.addMouseListener(new MazeMouseActionListener(controlPanelComposite));
 
         CustomEventManager.getInstance().registerObserver(EventType.fileReadEvent, new FileReadObserver(controlPanelComposite));

@@ -23,7 +23,11 @@ public class FileAwaitState implements CliState {
         File file = new File(str);
         try
         {
-            MazeFileReader.readTxtToMazeData(file);
+            if(MazeFileReader.isFileBinary(file))
+                MazeFileReader.readBinToMazeData(file);
+            else
+                MazeFileReader.readTxtToMazeData(file);
+
             CustomEventManager.getInstance().callEvent(EventType.fileReadEvent);
         }
         catch (IOException e)

@@ -20,6 +20,8 @@ public class InstructionAwaitState implements CliState {
         else
             cli.printToStream("Aby móc rozwiązać labirynt musisz w nim dodać wejście i wyjście!");
 
+        out += " | (X) Wyjdź";
+
         cli.printToStream(out);
     }
 
@@ -29,6 +31,9 @@ public class InstructionAwaitState implements CliState {
         {
             case "F":
                 cli.changeState(new FileAwaitState(cli));
+                break;
+            case "W":
+                cli.changeState(new FileWriteState(cli));
                 break;
             case "EX":
                 cli.changeState(new ChangeExitState(cli));
@@ -44,6 +49,8 @@ public class InstructionAwaitState implements CliState {
                 CustomEventManager.getInstance().callEvent(EventType.solveBeginEvent);
                 MazeDataSingleton.getInstance().solve();
                 break;
+            case "X":
+                System.exit(0);
             default:
                 cli.printToStream("Błędna komenda!");
                 cli.resetState();

@@ -227,4 +227,7 @@ public final class MazeDataSingleton
         return isSolved;
     }
 
+    public void setSolved(boolean solveFlag) {
+        isSolved = solveFlag;
+    }
 }

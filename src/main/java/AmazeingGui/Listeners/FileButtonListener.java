@@ -39,12 +39,12 @@ class FileButtonListener implements ActionListener {
 
         try {
             if(MazeFileReader.isFileBinary(currentFile)) {
-                throw new UnsupportedOperationException("Pliki binarne nie zaimplementowane!");
+                MazeFileReader.readBinToMazeData(currentFile);
             }
             else {
                 MazeFileReader.readTxtToMazeData(currentFile);
-                CustomEventManager.getInstance().callEvent(EventType.fileReadEvent);
             }
+            CustomEventManager.getInstance().callEvent(EventType.fileReadEvent);
 
         } catch (IOException ex) {
             controlPanelComposite.setStatusLabel("Błąd IO podczas czytania z pliku: " + ex.getClass().getName(), true);

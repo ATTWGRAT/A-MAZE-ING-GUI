@@ -51,6 +51,15 @@ public final class CLI {
 
     }
 
+    public CLI(PrintStream stream)
+    {
+        setup();
+
+        this.stream = stream;
+
+        runParser();
+    }
+
     private void runParser()
     {
         Scanner scanner = new Scanner(System.in);
