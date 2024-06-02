@@ -15,9 +15,9 @@ public class CliFileReadObserver extends CliObserver {
         cli.printToStream("Wczytano nowy labirynt z pliku: " + MazeDataSingleton.getInstance().getSource());
 
         if(MazeDataSingleton.getInstance().getEntry() != null && MazeDataSingleton.getInstance().getExit() != null)
-            cli.changeState(new InstructionAwaitState(cli, false));
-        else
-            cli.changeState(new InstructionAwaitState(cli, true));
+            cli.setSolveable(true);
+
+        cli.changeState(new InstructionAwaitState(cli));
 
     }
 }

@@ -2,6 +2,8 @@ package AmazeingGui;
 
 import AmazeingGui.ActionObservers.GUIObservers.ChangeCoordsObserver;
 import AmazeingGui.ActionObservers.GUIObservers.FileReadObserver;
+import AmazeingGui.ActionObservers.GUIObservers.SolveBeginObserver;
+import AmazeingGui.ActionObservers.GUIObservers.SolveFinishObserver;
 import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
 import AmazeingGui.Listeners.ListenerFactory;
@@ -72,10 +74,18 @@ public final class ApplicationGUI {
                 ListenerFactory.createActionListener(ButtonEnum.chooseExitButton, controlPanelComposite)
         );
 
+        controlPanelComposite.setButtonActionListener(
+                ButtonEnum.solveButton,
+                ListenerFactory.createActionListener(ButtonEnum.solveButton, controlPanelComposite)
+        );
+
         controlPanelComposite.addMouseListener(new MazeMouseActionListener(controlPanelComposite));
 
         CustomEventManager.getInstance().registerObserver(EventType.fileReadEvent, new FileReadObserver(controlPanelComposite));
-        CustomEventManager.getInstance().registerObserver(EventType.coordsChangeEvent, new ChangeCoordsObserver(controlPanelComposite));
+        CustomEventManager.getInstance().registerObserver(EventType.exitChangeEvent, new ChangeCoordsObserver(controlPanelComposite));
+        CustomEventManager.getInstance().registerObserver(EventType.entryChangeEvent, new ChangeCoordsObserver(controlPanelComposite));
+        CustomEventManager.getInstance().registerObserver(EventType.solveFinishEvent, new SolveFinishObserver(controlPanelComposite));
+        CustomEventManager.getInstance().registerObserver(EventType.solveBeginEvent, new SolveBeginObserver(controlPanelComposite));
 
     }
 

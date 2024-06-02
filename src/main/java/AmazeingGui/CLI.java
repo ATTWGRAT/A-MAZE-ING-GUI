@@ -1,8 +1,9 @@
 package AmazeingGui;
 
-import AmazeingGui.ActionObservers.CLIObservers.CliFileReadObserver;
+import AmazeingGui.ActionObservers.CLIObservers.*;
 import AmazeingGui.CLIStates.FileAwaitState;
 import AmazeingGui.CLIStates.CliState;
+import AmazeingGui.CLIStates.InstructionAwaitState;
 
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -10,16 +11,28 @@ import java.util.Scanner;
 public final class CLI {
     private PrintStream stream;
     private volatile CliState state;
+    private boolean isSolveable;
 
-    public CLI()
+    private void setup()
     {
         CustomEventManager.getInstance().registerObserver(EventType.fileReadEvent, new CliFileReadObserver(this));
+        CustomEventManager.getInstance().registerObserver(EventType.entryChangeEvent, new CliChangeEntryObserver(this));
+        CustomEventManager.getInstance().registerObserver(EventType.exitChangeEvent, new CliChangeExitObserver(this));
+        CustomEventManager.getInstance().registerObserver(EventType.solveBeginEvent, new CliSolveBeginObserver(this));
+        CustomEventManager.getInstance().registerObserver(EventType.solveFinishEvent, new CliSolveFinishObserver(this));
 
-        stream = System.out;
+        isSolveable = false;
+        stream = System.out; //Potentially changeable
 
         System.out.println("Uruchomiono program A-MAZE-ING!");
 
         state = new FileAwaitState(this);
+
+    }
+
+    public CLI()
+    {
+        setup();
 
         runParser();
 
@@ -27,15 +40,12 @@ public final class CLI {
 
     public CLI(String path)
     {
-        CustomEventManager.getInstance().registerObserver(EventType.fileReadEvent, new CliFileReadObserver(this));
-
-        stream = System.out;
-
-        System.out.println("Uruchomiono program A-MAZE-ING!");
-
-        state = new FileAwaitState(this);
+        setup();
 
         state.parseAndExecute(path);
+
+        if(isSolveable)
+            state.parseAndExecute("S");
 
         runParser();
 
@@ -63,4 +73,16 @@ public final class CLI {
         this.state = state;
     }
 
+    public boolean isSolveable() {
+        return isSolveable;
+    }
+
+    public void setSolveable(boolean solveable) {
+        isSolveable = solveable;
+    }
+
+    public void resetState()
+    {
+        this.state = new InstructionAwaitState(this);
+    }
 }

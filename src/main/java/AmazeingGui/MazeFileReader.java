@@ -40,13 +40,13 @@ public class MazeFileReader {
 
         width = line.length();
 
-        ArrayList<int[]> maze = new ArrayList<>();
+        ArrayList<byte[]> maze = new ArrayList<>();
 
-        int[] temp;
+        byte[] temp;
 
         while(line != null)
         {
-            temp = new int[width];
+            temp = new byte[width];
 
             height++;
 
@@ -130,7 +130,7 @@ public class MazeFileReader {
 
         //Arraylist do 2d tablicy
 
-        int[][] finalArray = new int[maze.size()][width];
+        byte[][] finalArray = new byte[maze.size()][width];
 
         for (int i = 0; i < maze.size(); i++) {
             finalArray[i] = maze.get(i);
