@@ -28,12 +28,26 @@ public class SolveFinishObserver extends GuiObserver{
 
         MazeDataSingleton data = MazeDataSingleton.getInstance();
 
+        String exitString;
+        String entryString;
+
+        if(data.getExit() == null)
+            exitString = "Brak";
+        else
+            exitString = data.getExit().toString();
+
+        if(data.getEntry() == null)
+            entryString = "Brak";
+        else
+            entryString = data.getEntry().toString();
+
+
         if(!data.isSolved())
             controlPanelComposite.setStatusLabel("Nie udało się znaleźć wyjścia z labiryntu! Spróbuj zmienić pozycję wejścia / wyjścia.", true);
         else {
             controlPanelComposite.repaintMazeImage();
-            controlPanelComposite.setStatusLabel("<html>Znaleziono rozwiązanie labiryntu!" + "<table><tr><td>Szerokość: " + data.width() + "</td><td> Wejście: " + data.getEntry() +
-                    "</td></tr><tr><td>Wysokość: " + data.height() + "</td><td> Wyjście: " + data.getExit() +
+            controlPanelComposite.setStatusLabel("<html>Znaleziono rozwiązanie labiryntu!" + "<table><tr><td>Szerokość: " + data.width() + "</td><td> Wejście: " + entryString +
+                    "</td></tr><tr><td>Wysokość: " + data.height() + "</td><td> Wyjście: " + exitString +
                     "</td></tr></table>", false);
         }
     }

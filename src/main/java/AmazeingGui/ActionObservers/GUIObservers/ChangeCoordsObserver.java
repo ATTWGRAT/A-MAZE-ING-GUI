@@ -30,8 +30,17 @@ public class ChangeCoordsObserver extends GuiObserver {
 
         controlPanelComposite.repaintMazeImage();
 
-        controlPanelComposite.setStatusLabel("<html>" + "<table><tr><td>Szerokość: " + data.width() + "</td><td> Wejście: " + data.getEntry() +
-                "</td></tr><tr><td>Wysokość: " + data.height() + "</td><td> Wyjście: " + data.getExit() +
+        String exitString = data.getExit().toString();
+        String entryString = data.getEntry().toString();
+
+        if(data.getExit() == null)
+            exitString = "Brak";
+
+        if(data.getEntry() == null)
+            entryString = "Brak";
+
+        controlPanelComposite.setStatusLabel("<html>" + "<table><tr><td>Szerokość: " + data.width() + "</td><td> Wejście: " + entryString +
+                "</td></tr><tr><td>Wysokość: " + data.height() + "</td><td> Wyjście: " + exitString +
                 "</td></tr></table>", false);
     }
 }

@@ -42,8 +42,14 @@ public class WriteFileButtonListener implements ActionListener {
                     if(choice == JOptionPane.YES_OPTION)
                         MazeFileWriter.writeMazeToTxt(chooser.getSelectedFile());
                     else
-                        MazeFileWriter.writeMazeToBin(chooser.getSelectedFile());
-
+                        try
+                        {
+                            MazeFileWriter.writeMazeToBin(chooser.getSelectedFile());
+                        }
+                        catch(RuntimeException e)
+                        {
+                            controlPanelComposite.setStatusLabel("Nie można wypisać labiryntu do pliku binarnego bez wyjścia / wejścia", true);
+                        }
                     controlPanelComposite.setStatusLabel("Wypisano labirynt do pliku: " + chooser.getSelectedFile().getName(), false);
                 }
                 catch (IOException e) {

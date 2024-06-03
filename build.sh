@@ -1,6 +1,7 @@
 #!/bin/bash
 
 rm -r ./out/
+rm AMAZEING.jar
 
 SOURCES=$(find ./src/ -type f -name "*.java")
 CLASSPATH=$(find ./lib/ -type f -name "*.jar" -printf '%p:')
