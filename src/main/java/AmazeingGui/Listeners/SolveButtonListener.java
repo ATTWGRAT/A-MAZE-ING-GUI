@@ -3,7 +3,7 @@ package AmazeingGui.Listeners;
 import AmazeingGui.CustomEventManager;
 import AmazeingGui.EventType;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-import AmazeingGui.MazeDataSingleton;
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

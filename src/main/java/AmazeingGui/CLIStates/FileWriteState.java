@@ -1,7 +1,7 @@
 package AmazeingGui.CLIStates;
 
 import AmazeingGui.CLI;
-import AmazeingGui.MazeFileWriter;
+import AmazeingGui.FileIO.MazeFileWriter;
 
 import java.io.File;
 import java.io.IOException;

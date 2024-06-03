@@ -1,5 +1,6 @@
 package AmazeingGui;
 
+import AmazeingGui.MazeData.MazeDataSingleton;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;

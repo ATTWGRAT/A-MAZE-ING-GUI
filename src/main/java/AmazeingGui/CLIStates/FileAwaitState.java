@@ -3,7 +3,7 @@ package AmazeingGui.CLIStates;
 import AmazeingGui.CustomEventManager;
 import AmazeingGui.EventType;
 import AmazeingGui.Exceptions.MazeException;
-import AmazeingGui.MazeFileReader;
+import AmazeingGui.FileIO.MazeFileReader;
 import AmazeingGui.CLI;
 
 import java.io.File;

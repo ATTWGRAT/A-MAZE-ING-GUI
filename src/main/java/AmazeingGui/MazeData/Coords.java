@@ -1,4 +1,4 @@
-package AmazeingGui;
+package AmazeingGui.MazeData;
 
 public class Coords{
     public int x;

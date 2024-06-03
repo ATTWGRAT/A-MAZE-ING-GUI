@@ -1,7 +1,7 @@
 package AmazeingGui.ActionObservers.CLIObservers;
 
 import AmazeingGui.CLI;
-import AmazeingGui.MazeDataSingleton;
+import AmazeingGui.MazeData.MazeDataSingleton;
 import AmazeingGui.CLIStates.InstructionAwaitState;
 
 public class CliFileReadObserver extends CliObserver {

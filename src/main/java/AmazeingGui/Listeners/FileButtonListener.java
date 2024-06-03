@@ -3,7 +3,7 @@ package AmazeingGui.Listeners;
 import AmazeingGui.CustomEventManager;
 import AmazeingGui.EventType;
 import AmazeingGui.Exceptions.MazeException;
-import AmazeingGui.MazeFileReader;
+import AmazeingGui.FileIO.MazeFileReader;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
 
 import javax.swing.*;

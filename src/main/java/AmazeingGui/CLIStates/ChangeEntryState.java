@@ -1,6 +1,8 @@
 package AmazeingGui.CLIStates;
 
 import AmazeingGui.*;
+import AmazeingGui.MazeData.Coords;
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 public class ChangeEntryState implements CliState{
     private CLI cli;

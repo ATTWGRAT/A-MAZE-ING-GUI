@@ -1,4 +1,6 @@
-package AmazeingGui;
+package AmazeingGui.FileIO;
+
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 import java.io.*;
 import java.util.ArrayList;

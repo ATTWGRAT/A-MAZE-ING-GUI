@@ -1,4 +1,7 @@
-package AmazeingGui;
+package AmazeingGui.GuiControlPanel;
+
+import AmazeingGui.MazeData.Coords;
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

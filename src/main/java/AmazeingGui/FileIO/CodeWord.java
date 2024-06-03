@@ -1,4 +1,4 @@
-package AmazeingGui;
+package AmazeingGui.FileIO;
 
 public class CodeWord {
     byte separator;

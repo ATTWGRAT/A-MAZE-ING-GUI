@@ -1,11 +1,11 @@
 package AmazeingGui.Listeners;
 
-import AmazeingGui.Coords;
+import AmazeingGui.MazeData.Coords;
 import AmazeingGui.CustomEventManager;
 import AmazeingGui.EventType;
 import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-import AmazeingGui.MazeDataSingleton;
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.MouseEvent;

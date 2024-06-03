@@ -1,4 +1,4 @@
-package AmazeingGui;
+package AmazeingGui.MazeData;
 
 import java.util.AbstractMap;
 import java.util.LinkedList;

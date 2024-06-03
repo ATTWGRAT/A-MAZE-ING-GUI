@@ -1,7 +1,7 @@
 package AmazeingGui.Listeners;
 
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-import AmazeingGui.MazeFileWriter;
+import AmazeingGui.FileIO.MazeFileWriter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

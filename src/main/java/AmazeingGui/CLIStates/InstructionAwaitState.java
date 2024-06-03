@@ -3,7 +3,7 @@ package AmazeingGui.CLIStates;
 import AmazeingGui.CLI;
 import AmazeingGui.CustomEventManager;
 import AmazeingGui.EventType;
-import AmazeingGui.MazeDataSingleton;
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 public class InstructionAwaitState implements CliState {
     private final CLI cli;

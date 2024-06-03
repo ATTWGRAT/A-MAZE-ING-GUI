@@ -1,6 +1,8 @@
-package AmazeingGui;
+package AmazeingGui.FileIO;
 
+import AmazeingGui.MazeData.Coords;
 import AmazeingGui.Exceptions.*;
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -170,10 +172,10 @@ public class MazeFileReader {
         if(header.esc != 0x1B)
             throw new MazeIncorrectCharException("Błędny znak w pozycji: (" + 0 + ", " + 0 + ")");
 
-        byte[][] maze = new byte[header.rows][header.columns];
-
         if(header.rows < 3 || header.columns < 3)
             throw new MazeTooSmallException("Labirynt za mały!");
+
+        byte[][] maze = new byte[header.rows][header.columns];
 
         short currCol = 0;
         short currRow = 0;

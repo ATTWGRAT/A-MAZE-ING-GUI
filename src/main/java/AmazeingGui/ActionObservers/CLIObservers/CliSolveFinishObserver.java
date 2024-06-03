@@ -1,7 +1,7 @@
 package AmazeingGui.ActionObservers.CLIObservers;
 
 import AmazeingGui.CLI;
-import AmazeingGui.MazeDataSingleton;
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 public class CliSolveFinishObserver extends CliObserver{
     public CliSolveFinishObserver(CLI cli)

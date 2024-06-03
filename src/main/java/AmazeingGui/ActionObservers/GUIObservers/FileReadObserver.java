@@ -2,7 +2,7 @@ package AmazeingGui.ActionObservers.GUIObservers;
 
 import AmazeingGui.GuiControlPanel.ButtonEnum;
 import AmazeingGui.GuiControlPanel.ControlPanelComposite;
-import AmazeingGui.MazeDataSingleton;
+import AmazeingGui.MazeData.MazeDataSingleton;
 
 import javax.swing.*;
 

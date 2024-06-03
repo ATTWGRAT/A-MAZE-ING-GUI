@@ -1,4 +1,7 @@
-package AmazeingGui;
+package AmazeingGui.MazeData;
+
+import AmazeingGui.CustomEventManager;
+import AmazeingGui.EventType;
 
 import java.util.*;
 
@@ -27,7 +30,7 @@ public final class MazeDataSingleton
         isSolved = false;
     }
 
-    static void initialize()
+    public static void initialize()
     {
         instance = new MazeDataSingleton();
     }
