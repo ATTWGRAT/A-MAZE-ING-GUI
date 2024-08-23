@@ -30,17 +30,23 @@ public class ChangeCoordsObserver extends GuiObserver {
 
         controlPanelComposite.repaintMazeImage();
 
-        String exitString = data.getExit().toString();
-        String entryString = data.getEntry().toString();
+        String exitString;
+        String entryString;
 
         if(data.getExit() == null)
             exitString = "Brak";
+        else
+            exitString = data.getExit().toString();
 
         if(data.getEntry() == null)
             entryString = "Brak";
+        else
+            entryString = data.getEntry().toString();
 
-        controlPanelComposite.setStatusLabel("<html>" + "<table><tr><td>Szerokość: " + data.width() + "</td><td> Wejście: " + entryString +
+        controlPanelComposite.setStatusLabel("<html>Odczytano labirynt z: " + data.getSource() + "<br/>" +
+                "<table><tr><td>Szerokość: " + data.width() + "</td><td> Wejście: " + entryString +
                 "</td></tr><tr><td>Wysokość: " + data.height() + "</td><td> Wyjście: " + exitString +
                 "</td></tr></table>", false);
+
     }
 }
